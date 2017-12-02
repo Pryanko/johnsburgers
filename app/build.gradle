@@ -18,7 +18,6 @@ android {
         }
     }
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.0.1'
@@ -26,17 +25,24 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-
-
     //MVP
     implementation "com.arello-mobile:moxy-app-compat:1.5.3"
-    annotationProcessor "com.arello-mobile:moxy-compiler:1.5.3"
     implementation "com.arello-mobile:moxy-android:1.5.3"
     implementation "com.arello-mobile:moxy:1.5.3"
+    annotationProcessor "com.arello-mobile:moxy-compiler:1.5.3"
+
+    implementation "com.google.dagger:dagger:2.13"
+    annotationProcessor "com.google.dagger:dagger-compiler:2.13"
 
     //DESIGN
     implementation 'com.roughike:bottom-bar:2.3.1'
     implementation 'com.android.support:design:27.0.1'
+
+    //BUTTERKNIFE
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+
 
 
 
@@ -45,13 +51,3 @@ dependencies {
 }
 
 //BottomBar не поддерживает Drawable vector выше 25.0.3 версии сборки
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        def requested = details.requested
-        if (requested.group == 'com.android.support') {
-            if (!requested.name.startsWith("multidex")) {
-                details.useVersion '25.3.0'
-            }
-        }
-    }
-}
