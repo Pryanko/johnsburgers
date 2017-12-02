@@ -1,4 +1,9 @@
 <resources>
+
     <string name="app_name">JOHNS BURGER</string>
+    <string name="info_tab">INFO</string>
+    <string name="menu_tab">MENU</string>
+    <string name="basket_tab">BASKET</string>
+
 
 </resources>
