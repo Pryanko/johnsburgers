@@ -1,15 +1,13 @@
 package com.examle.libgo.johnsburgers.presentation.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.presentation.fragments.BasketFragment;
-import com.examle.libgo.johnsburgers.presentation.fragments.InfoFragment;
-import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
+import com.examle.libgo.johnsburgers.presentation.adapters.SwipeAdapter;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -24,22 +22,19 @@ public class HeadActivity extends MvpAppCompatActivity {
     TextView textToolbar;
     @BindView(R.id.bottomBar)
     BottomBar bottomBar;
-
-    //Fragments
-    InfoFragment infoFragment;
-    MenuFragment menuFragment;
-    BasketFragment basketFragment;
+    @BindView(R.id.swipePager)
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
         ButterKnife.bind(this);
-        initFragment();
-        tabSelectListener();
 
-        if (savedInstanceState == null){
-            replaceFragment(infoFragment);
+        if (savedInstanceState == null) {
+            setSwipeOptions();
+            tabSelectListener();
+            viewPageListener();
         }
     }
 
@@ -49,37 +44,41 @@ public class HeadActivity extends MvpAppCompatActivity {
             public void onTabSelected(int tabId) {
               switch (tabId){
                   case R.id.tab_burger_info:
-                      replaceFragment(infoFragment);
+                      viewPager.setCurrentItem(0);
                       break;
                   case R.id.tab_menu:
-                      replaceFragment(menuFragment);
+                      viewPager.setCurrentItem(1);
                       break;
                   case R.id.tab_basket:
-                      replaceFragment(basketFragment);
+                      viewPager.setCurrentItem(2);
                       break;
               }
             }
         });
     }
 
-    private void replaceFragment(Fragment fragment){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container_fragments, fragment)
-                .commit();
+    private void  viewPageListener(){
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                bottomBar.selectTabAtPosition(position, true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
-    protected void initFragment(){
-        if (infoFragment == null) {
-            infoFragment = new InfoFragment();
-        }
-        if (menuFragment == null) {
-            menuFragment = new MenuFragment();
-        }
-        if (basketFragment == null) {
-            basketFragment = new BasketFragment();
-        }
+    private void setSwipeOptions(){
+        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(swipeAdapter);
+
     }
-
-
 }
