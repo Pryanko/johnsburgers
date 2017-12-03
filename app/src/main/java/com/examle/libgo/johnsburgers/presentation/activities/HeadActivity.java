@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeAdapter;
+import com.examle.libgo.johnsburgers.presentation.anim.ViewAnimationFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -79,6 +80,7 @@ public class HeadActivity extends MvpAppCompatActivity {
     private void setSwipeOptions(){
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
         viewPager.setAdapter(swipeAdapter);
+        viewPager.setPageTransformer(true, new ViewAnimationFragment());
 
     }
 }
