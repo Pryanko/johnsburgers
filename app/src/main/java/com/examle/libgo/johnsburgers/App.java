@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.examle.libgo.johnsburgers.di.AppComponent;
 import com.examle.libgo.johnsburgers.di.DaggerAppComponent;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * Created by libgo on 03.12.2017.
@@ -18,6 +19,7 @@ public class App extends Application {
         super.onCreate();
 
         appComponent = DaggerAppComponent.create();
+        Fresco.initialize(this);
     }
 
     public static AppComponent getAppComponent() {

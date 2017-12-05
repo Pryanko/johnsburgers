@@ -1,26 +1,38 @@
 package com.examle.libgo.johnsburgers.presentation.activities;
 
+
 import android.os.Bundle;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
+import com.examle.libgo.johnsburgers.data.ServerResponse;
+import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeAdapter;
 import com.examle.libgo.johnsburgers.presentation.anim.ViewAnimationFragment;
+import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class HeadActivity extends MvpAppCompatActivity {
-    //Bind View
 
+
+
+    //Bind View
     @BindView(R.id.app_toolbar)
     Toolbar toolbar;
     @BindView(R.id.textToolbar)
@@ -29,21 +41,28 @@ public class HeadActivity extends MvpAppCompatActivity {
     BottomBar bottomBar;
     @BindView(R.id.swipePager)
     ViewPager viewPager;
+    //private HeadPresenters headPresenters;
+
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
         ButterKnife.bind(this);
+        setBottomBarBadge();
+        fragmentManager = getSupportFragmentManager();
+        setSwipeOptions();
+        tabSelectListener();
+        viewPageListener();
+      //  if (savedInstanceState == null) {
+            //headPresenters = App.getAppComponent().getHeadPresenters();
+            //headPresenters.onCreate();
 
-        if (savedInstanceState == null) {
-            setBottomBarBadge();
-            setSwipeOptions();
-            tabSelectListener();
-            viewPageListener();
+           // setBottomBarBadge();
 
 
-        }
+       // }
     }
 
     private void tabSelectListener(){
@@ -88,7 +107,8 @@ public class HeadActivity extends MvpAppCompatActivity {
     }
 
     private void setSwipeOptions(){
-        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager());
+        SwipeAdapter swipeAdapter = new SwipeAdapter(fragmentManager);
+        swipeAdapter.notifyDataSetChanged();
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageTransformer(true, new ViewAnimationFragment());
 

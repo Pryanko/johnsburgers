@@ -4,6 +4,8 @@
     <string name="info_tab">INFO</string>
     <string name="menu_tab">MENU</string>
     <string name="basket_tab">BASKET</string>
+    <string name="name_news">NEWS</string>
+    <string name="text_news">NEWS</string>
 
 
 </resources>
