@@ -1,35 +1,24 @@
 package com.examle.libgo.johnsburgers.presentation.activities;
 
-
 import android.os.Bundle;
-
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
-import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.data.ServerResponse;
-import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeAdapter;
 import com.examle.libgo.johnsburgers.presentation.anim.ViewAnimationFragment;
-import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
+import com.examle.libgo.johnsburgers.presentation.fragments.BasketFragment;
+import com.examle.libgo.johnsburgers.presentation.fragments.InfoFragment;
+import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class HeadActivity extends MvpAppCompatActivity {
-
 
 
     //Bind View
@@ -41,48 +30,45 @@ public class HeadActivity extends MvpAppCompatActivity {
     BottomBar bottomBar;
     @BindView(R.id.swipePager)
     ViewPager viewPager;
-    //private HeadPresenters headPresenters;
 
-    private FragmentManager fragmentManager;
+    private InfoFragment infoFragment;
+    private MenuFragment menuFragment;
+    private BasketFragment basketFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
         ButterKnife.bind(this);
-        setBottomBarBadge();
-        fragmentManager = getSupportFragmentManager();
+        infoFragment = new InfoFragment();
+        menuFragment = new MenuFragment();
+        basketFragment = new BasketFragment();
+
         setSwipeOptions();
+
         tabSelectListener();
         viewPageListener();
-      //  if (savedInstanceState == null) {
-            //headPresenters = App.getAppComponent().getHeadPresenters();
-            //headPresenters.onCreate();
-
-           // setBottomBarBadge();
-
-
-       // }
+        setBottomBarBadge();
     }
 
-    private void tabSelectListener(){
+      private void tabSelectListener(){
         bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(int tabId) {
-              switch (tabId){
-                  case R.id.tab_burger_info:
-                      viewPager.setCurrentItem(0);
-                      textToolbar.setText(R.string.app_name);
-                      break;
-                  case R.id.tab_menu:
-                      viewPager.setCurrentItem(1);
-                      textToolbar.setText(R.string.menu_tab);
-                      break;
-                  case R.id.tab_basket:
-                      viewPager.setCurrentItem(2);
-                      textToolbar.setText(R.string.basket_tab);
-                      break;
-              }
+                switch (tabId){
+                    case R.id.tab_burger_info:
+                        viewPager.setCurrentItem(0);
+                        textToolbar.setText(R.string.app_name);
+                        break;
+                    case R.id.tab_menu:
+                        viewPager.setCurrentItem(1);
+                        textToolbar.setText(R.string.menu_tab);
+                        break;
+                    case R.id.tab_basket:
+                        viewPager.setCurrentItem(2);
+                        textToolbar.setText(R.string.basket_tab);
+                        break;
+                }
             }
         });
     }
@@ -96,7 +82,7 @@ public class HeadActivity extends MvpAppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                bottomBar.selectTabAtPosition(position, true);
+                 bottomBar.selectTabAtPosition(position, true);
             }
 
             @Override
@@ -107,8 +93,7 @@ public class HeadActivity extends MvpAppCompatActivity {
     }
 
     private void setSwipeOptions(){
-        SwipeAdapter swipeAdapter = new SwipeAdapter(fragmentManager);
-        swipeAdapter.notifyDataSetChanged();
+        SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), infoFragment, menuFragment, basketFragment);
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageTransformer(true, new ViewAnimationFragment());
 
@@ -121,3 +106,7 @@ public class HeadActivity extends MvpAppCompatActivity {
 
     }
 }
+
+
+
+

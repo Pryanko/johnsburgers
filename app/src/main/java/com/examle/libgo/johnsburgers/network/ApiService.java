@@ -16,7 +16,7 @@ import static com.examle.libgo.johnsburgers.tools.Const.API_URL;
 
 public interface ApiService {
 
-    @GET("cpISVQWqyG?indent=2")
+    @GET("ceBYrHcIUi?indent=2")
     Observable<ServerResponse> getApi();
 
     Retrofit retrofit = new Retrofit.Builder()

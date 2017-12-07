@@ -24,6 +24,15 @@
             app:viewAspectRatio="1.5"
             app:roundedCornerRadius="@dimen/cardview_default_radius"/>
 
+        <View
+            android:visibility="invisible"
+            android:id="@+id/colorView"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_alignBottom="@+id/item_image"
+            android:background="@color/colorViewCard"
+            />
+
         <TextView
             android:id="@+id/textNameNews"
             android:layout_width="match_parent"

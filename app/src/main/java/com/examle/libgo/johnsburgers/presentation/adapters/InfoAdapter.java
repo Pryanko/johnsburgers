@@ -5,13 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.News;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,7 +34,11 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(InfoAdapter.ViewHolder holder, int position) {
         News news = dataList.get(position);
+
         holder.itemView.setImageURI(news.getScrNews());
+        if(news.getColor()){
+            holder.view.setVisibility(View.VISIBLE);
+        }
         holder.nameNews.setText(news.getTextNews());
         holder.textNameNews.setText(news.getNameNews());
     }
@@ -57,6 +58,8 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
         TextView textNameNews;
         @BindView(R.id.textNews)
         TextView nameNews;
+        @BindView(R.id.colorView)
+        View view;
 
         ViewHolder(View itemView) {
             super(itemView);

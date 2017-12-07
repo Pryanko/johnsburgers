@@ -6,6 +6,8 @@
     <string name="basket_tab">BASKET</string>
     <string name="name_news">NEWS</string>
     <string name="text_news">NEWS</string>
+    <string name="text_menu_MEALS">MEALS</string>
+    <string name="text_menu_DRINKS">DRINKS</string>
 
 
 </resources>
