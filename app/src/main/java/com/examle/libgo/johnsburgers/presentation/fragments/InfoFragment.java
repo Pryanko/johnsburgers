@@ -4,20 +4,21 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.ServerResponse;
 import com.examle.libgo.johnsburgers.data.pojos.News;
+import com.examle.libgo.johnsburgers.data.pojos.Timing;
 import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.InfoAdapter;
+import com.examle.libgo.johnsburgers.presentation.adapters.LocationAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +27,7 @@ import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-
-
-
-
+import static com.examle.libgo.johnsburgers.tools.Const.KEY_MODEL;
 
 /**
  * Created by libgo on 03.12.2017.
@@ -39,11 +37,16 @@ public class InfoFragment extends MvpAppCompatFragment {
 
     private ServerResponse response;
     private List<News> news;
+    private List<Timing> timings;
     LinearLayoutManager linearLayoutManager;
-
+    LinearLayoutManager layoutManagerLocation;
     //Bind View
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.locationRecyclerView)
+    RecyclerView recyclerViewLocation;
+    @BindView(R.id.locationViewTop)
+    View view;
     /*@BindView(R.id.progressBar)
     ProgressBar progressBar;*/
 
@@ -63,10 +66,9 @@ public class InfoFragment extends MvpAppCompatFragment {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         ButterKnife.bind(this, view);
         if(savedInstanceState != null){
-            news = savedInstanceState.getParcelableArrayList("list");
+            news = savedInstanceState.getParcelableArrayList(KEY_MODEL);
             startAdapter("onCreateView");
         }
-
         return view;
     }
 
@@ -92,26 +94,39 @@ public class InfoFragment extends MvpAppCompatFragment {
     private void startViewNews(ServerResponse serverResponse) {
         response = serverResponse;
         Log.d("Server Response", response.toString() );
+        Log.d("TIMINGS", response.getTimings().toString());
         startAdapter("startViewNews");
 
     }
 
     private void startAdapter(String s){
+        view.setVisibility(View.VISIBLE);
         linearLayoutManager = new LinearLayoutManager(getActivity());
+        layoutManagerLocation = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerViewLocation.setLayoutManager(layoutManagerLocation);
+        recyclerViewLocation.setNestedScrollingEnabled(false);
         if(news == null) {
             news = response.getNews();
         }
+        if(timings == null){
+            timings = response.getTimings();
+        }
+
         InfoAdapter infoAdapter = new InfoAdapter(news);
+        LocationAdapter locationAdapter = new LocationAdapter(timings);
+
         recyclerView.setAdapter(infoAdapter);
-        Log.d("News" + s, news.toString());
+        recyclerViewLocation.setAdapter(locationAdapter);
+        Log.d("News " + s, news.toString());
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("scroll", recyclerView.getVerticalScrollbarPosition());
-        outState.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) news);
+        outState.putParcelableArrayList(KEY_MODEL, (ArrayList<? extends Parcelable>) news);
         }
     }
 

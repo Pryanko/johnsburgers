@@ -2,7 +2,7 @@ package com.examle.libgo.johnsburgers.data;
 
 import com.examle.libgo.johnsburgers.data.pojos.Location;
 import com.examle.libgo.johnsburgers.data.pojos.News;
-import com.examle.libgo.johnsburgers.data.pojos.Timings;
+import com.examle.libgo.johnsburgers.data.pojos.Timing;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -28,10 +28,11 @@ public class ServerResponse {
     private Location location;
     @SerializedName("timings")
     @Expose
-    private Timings timings;
+    private List<Timing> timings = null;
     @SerializedName("link")
     @Expose
     private String link;
+
 
     public String getStatusCode() {
         return statusCode;
@@ -65,11 +66,11 @@ public class ServerResponse {
         this.location = location;
     }
 
-    public Timings getTimings() {
+    public List<Timing> getTimings() {
         return timings;
     }
 
-    public void setTimings(Timings timings) {
+    public void setTimings(List<Timing> timings) {
         this.timings = timings;
     }
 

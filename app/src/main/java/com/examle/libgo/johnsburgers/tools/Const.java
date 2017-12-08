@@ -8,5 +8,6 @@ package com.examle.libgo.johnsburgers.tools;
 public class Const {
 
     public final static String API_URL = "http://www.json-generator.com/api/json/get/";
+    public final static String KEY_MODEL = "model_list";
 
 }

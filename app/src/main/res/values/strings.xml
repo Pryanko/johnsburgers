@@ -8,6 +8,9 @@
     <string name="text_news">NEWS</string>
     <string name="text_menu_MEALS">MEALS</string>
     <string name="text_menu_DRINKS">DRINKS</string>
+    <string name="days_textview">DAY</string>
+    <string name="textview_time_clock">CLOCK</string>
+    <string name="working_time">WORKING TIME</string>
 
 
 </resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewDay"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+
+        android:layout_marginBottom="2dp"
+
+        android:text="@string/days_textview" />
+
+    <TextView
+        android:id="@+id/textViewClock"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginStart="4dp"
+
+        android:layout_marginBottom="2dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_alignParentRight="true"
+        android:text="@string/textview_time_clock" />
+
+    <View
+        android:layout_below="@+id/textViewClock"
+        android:layout_width="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_height="2dp">
+    </View>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

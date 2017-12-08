@@ -8,11 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.presentation.adapters.SwipeMenuAdapters;
-
+import com.examle.libgo.johnsburgers.presentation.adapters.SwipeMenuAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -27,7 +25,6 @@ public class MenuFragment extends MvpAppCompatFragment {
     TabLayout tabLayout;
     @BindView(R.id.viewPagerMenu)
     ViewPager viewPager;
-    private SwipeMenuAdapters swipeMenuAdapters;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,8 +36,11 @@ public class MenuFragment extends MvpAppCompatFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         ButterKnife.bind(this, view);
-        swipeMenuAdapters = new SwipeMenuAdapters(getChildFragmentManager());
-        viewPager.setAdapter(swipeMenuAdapters);
+
+        SwipeMenuAdapter swipeMenuAdapter = new SwipeMenuAdapter(getChildFragmentManager());
+        swipeMenuAdapter.addTabTitle(getResources().getString(R.string.text_menu_MEALS));
+        swipeMenuAdapter.addTabTitle(getResources().getString(R.string.text_menu_DRINKS));
+        viewPager.setAdapter(swipeMenuAdapter);
         tabLayout.setupWithViewPager(viewPager);
         return view;
 
