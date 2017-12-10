@@ -36,7 +36,7 @@ public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
         News news = dataList.get(position);
 
         holder.itemView.setImageURI(news.getScrNews());
-        if(news.getColor()){
+        if(news.getColor() == 1){
             holder.view.setVisibility(View.VISIBLE);
         }
         holder.nameNews.setText(news.getTextNews());

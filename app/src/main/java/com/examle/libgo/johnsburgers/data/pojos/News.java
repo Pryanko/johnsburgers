@@ -22,7 +22,7 @@ public class News implements Parcelable{
 
     @SerializedName("color")
     @Expose
-    private Boolean color;
+    private Integer color;
 
     protected News(Parcel in) {
         nameNews = in.readString();
@@ -66,11 +66,11 @@ public class News implements Parcelable{
         this.scrNews = scrNews;
     }
 
-    public Boolean getColor() {
+    public Integer getColor() {
         return color;
     }
 
-    public void setColor(Boolean color) {
+    public void setColor(Integer color) {
         this.color = color;
     }
 

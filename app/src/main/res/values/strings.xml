@@ -11,6 +11,13 @@
     <string name="days_textview">DAY</string>
     <string name="textview_time_clock">CLOCK</string>
     <string name="working_time">WORKING TIME</string>
+    <string name="address">Address</string>
+    <string name="textLink">The link to the website</string>
+    <string name="mealsAll">NAME MEALS</string>
+    <string name="describeAllMenu">Describe</string>
+    <string name="item_name_menu">Item NAME</string>
+    <string name="CostView">cost</string>
+    <string name="DescribeItem">DescribeItem</string>
 
 
 </resources>

@@ -3,6 +3,7 @@ package com.examle.libgo.johnsburgers.di.modules;
 
 import android.app.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.examle.libgo.johnsburgers.data.ServerResponse;
@@ -24,6 +25,8 @@ import dagger.Provides;
  */
 @Module
 public class HeadModule {
+
+
 
     @Provides
     @Singleton
