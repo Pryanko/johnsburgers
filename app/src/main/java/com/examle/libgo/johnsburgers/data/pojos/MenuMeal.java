@@ -3,11 +3,13 @@ package com.examle.libgo.johnsburgers.data.pojos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmObject;
+
 /**
  * Created by libgo on 11.12.2017.
  */
 
-public class MenuMeal {
+public class MenuMeal extends RealmObject {
 
     @SerializedName("cost")
     @Expose

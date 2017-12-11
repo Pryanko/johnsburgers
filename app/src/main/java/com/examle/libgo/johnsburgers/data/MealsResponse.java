@@ -1,5 +1,6 @@
-package com.examle.libgo.johnsburgers.data.pojos;
+package com.examle.libgo.johnsburgers.data;
 
+import com.examle.libgo.johnsburgers.data.pojos.MenuMealsAll;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;

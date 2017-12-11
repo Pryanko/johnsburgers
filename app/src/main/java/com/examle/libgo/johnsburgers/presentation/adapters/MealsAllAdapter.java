@@ -54,6 +54,7 @@ public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHo
         ItemAdapter itemAdapter = new ItemAdapter(menuMeal.getMenuMeals());
         holder.recyclerView.setLayoutManager(lm);
         holder.recyclerView.setAdapter(itemAdapter);
+        holder.recyclerView.setNestedScrollingEnabled(false);
     }
 
     @Override

@@ -28,6 +28,7 @@ public class News implements Parcelable{
         nameNews = in.readString();
         textNews = in.readString();
         scrNews = in.readString();
+        color = in.readInt();
     }
 
     public static final Creator<News> CREATOR = new Creator<News>() {
@@ -86,6 +87,7 @@ public class News implements Parcelable{
         parcel.writeString(nameNews);
         parcel.writeString(textNews);
         parcel.writeString(scrNews);
+        parcel.writeInt(color);
 
     }
 }

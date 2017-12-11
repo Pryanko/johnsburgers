@@ -10,6 +10,7 @@ import com.examle.libgo.johnsburgers.data.ServerResponse;
 import com.examle.libgo.johnsburgers.network.RequestApi;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeAdapter;
 import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
+import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
@@ -26,7 +27,11 @@ import dagger.Provides;
 @Module
 public class HeadModule {
 
-
+    @Provides
+    @Singleton
+    BottomBarBadgeHelper bottomBarBadgeHelper(){
+        return new BottomBarBadgeHelper();
+    }
 
     @Provides
     @Singleton

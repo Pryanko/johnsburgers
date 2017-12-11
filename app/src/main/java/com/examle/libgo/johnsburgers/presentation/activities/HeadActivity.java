@@ -5,12 +5,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeAdapter;
 import com.examle.libgo.johnsburgers.presentation.anim.ViewAnimationFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.BasketFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.InfoFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
+import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -34,6 +36,7 @@ public class HeadActivity extends MvpAppCompatActivity {
     private InfoFragment infoFragment;
     private MenuFragment menuFragment;
     private BasketFragment basketFragment;
+    private BottomBarBadgeHelper bottomBarBadgeHelper = App.getAppComponent().getBottomBarBadgeHelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +103,8 @@ public class HeadActivity extends MvpAppCompatActivity {
     }
 
     private void setBottomBarBadge(){
-        BottomBarTab basket = bottomBar.getTabWithId(R.id.tab_basket);
-        basket.setBadgeBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        basket.setBadgeCount(21);
-
+        bottomBarBadgeHelper.setBottomBar(bottomBar);
+        bottomBarBadgeHelper.setBottomBadge();
     }
 }
 

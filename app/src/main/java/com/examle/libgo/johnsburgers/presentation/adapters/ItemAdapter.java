@@ -1,14 +1,18 @@
 package com.examle.libgo.johnsburgers.presentation.adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
+import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 
 import org.w3c.dom.Text;
 
@@ -16,6 +20,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+
+import static com.examle.libgo.johnsburgers.tools.Const.EURO;
 
 /**
  * Created by libgo on 11.12.2017.
@@ -24,6 +31,7 @@ import butterknife.ButterKnife;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<MenuMeal> mealList;
+    private BottomBarBadgeHelper bottomBarBadgeHelper = App.getAppComponent().getBottomBarBadgeHelper();
 
     public ItemAdapter(List<MenuMeal> list){
         this.mealList = list;
@@ -37,14 +45,22 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
+        Realm realm = Realm.getDefaultInstance();
+
         MenuMeal menuMeal = mealList.get(position);
         holder.textViewNameItem.setText(menuMeal.getNameMealsMenu());
         holder.textViewDescribeItem.setText(menuMeal.getDescribeTextMenu());
-        holder.textViewCost.setText(String.valueOf(menuMeal.getCost()));
+        holder.textViewCost.setText(EURO + String.valueOf(menuMeal.getCost()));
         holder.buttonItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                 realm.beginTransaction();
+                 MenuMeal menuMealrealm = realm.createObject(MenuMeal.class);
+                 menuMealrealm.setCost(menuMeal.getCost());
+                 menuMealrealm.setNameMealsMenu(menuMeal.getNameMealsMenu());
+                 realm.commitTransaction();
+                Log.d("RealmMM", realm.where(MenuMeal.class).findAll().toString());
+                 bottomBarBadgeHelper.setBottomBadge();
             }
         });
 

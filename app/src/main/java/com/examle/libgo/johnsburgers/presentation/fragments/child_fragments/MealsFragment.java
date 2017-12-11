@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.data.pojos.MealsResponse;
+import com.examle.libgo.johnsburgers.data.MealsResponse;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMealsAll;
 import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.MealsAllAdapter;
@@ -71,6 +71,7 @@ public class MealsFragment extends MvpAppCompatFragment {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(mealsAllAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
     }
 
 

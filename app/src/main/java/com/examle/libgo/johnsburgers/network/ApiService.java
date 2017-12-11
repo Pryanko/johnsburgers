@@ -1,7 +1,8 @@
 package com.examle.libgo.johnsburgers.network;
 
+import com.examle.libgo.johnsburgers.data.DrinkResponse;
 import com.examle.libgo.johnsburgers.data.ServerResponse;
-import com.examle.libgo.johnsburgers.data.pojos.MealsResponse;
+import com.examle.libgo.johnsburgers.data.MealsResponse;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import io.reactivex.Observable;
@@ -22,6 +23,9 @@ public interface ApiService {
 
     @GET("cvrhEatlaq?indent=2")
     Observable<MealsResponse> getMenuMeals();
+
+    @GET("bUdsdpCeMi?indent=2")
+    Observable<DrinkResponse> getMenuDrinks();
 
 
     Retrofit retrofit = new Retrofit.Builder()
