@@ -14,7 +14,6 @@ import com.examle.libgo.johnsburgers.presentation.fragments.InfoFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabSelectListener;
 
 import butterknife.BindView;

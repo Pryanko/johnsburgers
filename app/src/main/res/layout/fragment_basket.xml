@@ -4,12 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
+    <View
+        android:id="@+id/basketView"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        >
+
+    </View>
+
+
+    <TextView
+        android:id="@+id/textViewOrder"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="149dp"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:layout_marginTop="8dp"
+        android:textSize="22sp"
+        android:textColor="@color/colorWhite"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/yourOrder" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/basketView"
+        android:layout_marginTop="2dp"
+        android:id="@+id/recyclerViewBasket"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/item_basket_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:visibility="visible"
+        app:actualImageResource="@drawable/basket"
+        app:backgroundImage="@drawable/basket"
+        app:actualImageScaleType="focusCrop"
+        app:roundTopLeft="true"
+        app:roundTopRight="true"
+        app:viewAspectRatio="1.43"
+        app:roundedCornerRadius="@dimen/cardview_default_radius"/>
+
+    <TextView
+        android:id="@+id/textViewNullBasket"
+        android:visibility="visible"
+        android:layout_below="@+id/item_basket_image"
+        android:textSize="18sp"
+        android:layout_marginTop="32dp"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/NullBasket" />
+
+
 </RelativeLayout>

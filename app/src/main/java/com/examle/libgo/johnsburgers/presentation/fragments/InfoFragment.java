@@ -66,9 +66,9 @@ public class InfoFragment extends MvpAppCompatFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        //setRetainInstance(true);
+
 
 
 
@@ -79,30 +79,17 @@ public class InfoFragment extends MvpAppCompatFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         ButterKnife.bind(this, view);
-        if(savedInstanceState == null | news == null) {
+        if(savedInstanceState == null) {
             downloadData();
         }
         if(savedInstanceState != null){
             news = savedInstanceState.getParcelableArrayList(KEY_MODEL);
-            Log.d("STATE", news.toString());
-            int i=0;
-            for (News news1 : news){
-                news1 = news.get(i++);
-                Log.d("STRING", news1.getNameNews());
-                Log.d("14124", news1.getScrNews());
-                Log.d("BOOLEAN", news1.getColor().toString());
-            }
             timings = savedInstanceState.getParcelableArrayList(KEY_MODEL_LOCATION);
             location = savedInstanceState.getParcelable(KEY_LOCATION);
             Log.d("zSTATE", location.getAdressName());
-            if(news.size() == 0){
-                downloadData();
-            }
-            else{
-                startAdapter("s");
-            }
-
+            startAdapter("s");
         }
+
         return view;
     }
 

@@ -1,8 +1,9 @@
 package com.examle.libgo.johnsburgers.tools;
 
+import android.graphics.Color;
+
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
-import com.examle.libgo.johnsburgers.data.pojos.News;
+import com.examle.libgo.johnsburgers.data.pojos.ItemShop;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 
@@ -23,8 +24,8 @@ public class BottomBarBadgeHelper {
     public void setBottomBadge(){
         Realm realm = Realm.getDefaultInstance();
         BottomBarTab basket = bottomBar.getTabWithId(R.id.tab_basket);
-        //basket.setBadgeBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        basket.setBadgeCount(realm.where(MenuMeal.class).findAll().size());
+        basket.setBadgeBackgroundColor(Color.parseColor("#352f2d"));
+        basket.setBadgeCount(realm.where(ItemShop.class).findAll().size());
     }
 
 

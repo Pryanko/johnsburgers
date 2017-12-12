@@ -12,6 +12,6 @@ public class Const {
     public final static String KEY_MODEL_LOCATION = "time_list";
     public final static String KEY_LOCATION = "location_key";
     public final static String LOG_TAG = "SERVER:  ";
-    public final static String EURO = "€";
+    public final static String EURO = "€ ";
 
 }

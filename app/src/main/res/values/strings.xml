@@ -18,6 +18,11 @@
     <string name="item_name_menu">Item NAME</string>
     <string name="CostView">cost</string>
     <string name="DescribeItem">DescribeItem</string>
+    <string name="NullBasket">Our cool chefs await your order!</string>
+    <string name="textViewNameItemBasket">textViewNameItemBasket</string>
+    <string name="Counter">Counter</string>
+    <string name="AllCost">AllCost</string>
+    <string name="yourOrder">YOUR ORDER</string>
 
 
 </resources>

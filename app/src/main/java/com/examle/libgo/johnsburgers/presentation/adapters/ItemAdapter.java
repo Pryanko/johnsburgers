@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
+import com.examle.libgo.johnsburgers.data.pojos.ItemShop;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 
@@ -54,12 +55,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.buttonItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                 Integer i = realm.where(ItemShop.class).findAll().size();
                  realm.beginTransaction();
-                 MenuMeal menuMealrealm = realm.createObject(MenuMeal.class);
-                 menuMealrealm.setCost(menuMeal.getCost());
-                 menuMealrealm.setNameMealsMenu(menuMeal.getNameMealsMenu());
+                 ItemShop itemShop = realm.createObject(ItemShop.class, i);
+                 itemShop.setCost(menuMeal.getCost());
+                 itemShop.setItem_name(menuMeal.getNameMealsMenu());
+                 itemShop.setCounter(1);
                  realm.commitTransaction();
-                Log.d("RealmMM", realm.where(MenuMeal.class).findAll().toString());
+                Log.d("RealmMM", realm.where(ItemShop.class).findAll().toString());
                  bottomBarBadgeHelper.setBottomBadge();
             }
         });

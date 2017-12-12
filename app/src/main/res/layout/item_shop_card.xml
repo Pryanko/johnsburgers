@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="2dp"
+    app:cardPreventCornerOverlap="true"
+    app:elevation="2dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/item_image_recycler"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginLeft="2dp"
+            app:actualImageScaleType="focusCrop"
+            app:backgroundImage="@drawable/logo_burger"
+            app:roundTopLeft="true"
+            app:roundTopRight="true"
+            app:viewAspectRatio="1"
+            app:roundedCornerRadius="@dimen/cardview_default_radius"/>
+
+        <TextView
+            android:id="@+id/textViewNameItemBasket"
+            android:textSize="18sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="66dp"
+            android:layout_marginRight="96dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textViewNameItemBasket" />
+
+        <TextView
+            android:id="@+id/textViewBasketCounter"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
+            android:textSize="20sp"
+            android:layout_height="wrap_content"
+            android:text="@string/Counter" />
+
+        <TextView
+            android:id="@+id/textViewBasketAllCost"
+            android:layout_below="@+id/textViewBasketCounter"
+            android:layout_alignParentRight="true"
+            android:textSize="16sp"
+            android:layout_marginRight="12dp"
+            android:shadowColor="@color/colorPrimaryDark"
+            android:shadowRadius="5"
+            android:shadowDx="3"
+            android:layout_marginTop="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/AllCost" />
+
+        <View
+            android:layout_below="@+id/item_image_recycler"
+            android:layout_width="match_parent"
+            android:background="@color/colorPrimaryDark"
+            android:layout_marginLeft="56dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_height="1dp">
+
+        </View>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
