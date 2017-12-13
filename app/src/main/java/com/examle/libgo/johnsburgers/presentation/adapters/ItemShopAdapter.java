@@ -38,7 +38,7 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
     public void onBindViewHolder(ItemShopAdapter.ViewHolder holder, int position) {
         ItemShop itemShop = itemShopList.get(position);
         holder.nameItemBasket.setText(itemShop.getItem_name());
-        holder.couterBasket.setText(String.valueOf(itemShop.getCounter()));
+        holder.counterBasket.setText(String.valueOf(itemShop.getCounter()));
         holder.costBasket.setText(String.valueOf(itemShop.getCost()));
 
     }
@@ -57,7 +57,7 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
         @BindView(R.id.textViewNameItemBasket)
         TextView nameItemBasket;
         @BindView(R.id.textViewBasketCounter)
-        TextView couterBasket;
+        TextView counterBasket;
         @BindView(R.id.textViewBasketAllCost)
         TextView costBasket;
 
