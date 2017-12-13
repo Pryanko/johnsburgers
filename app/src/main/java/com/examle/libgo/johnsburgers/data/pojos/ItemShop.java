@@ -14,11 +14,11 @@ public class ItemShop extends RealmObject {
 
     @SerializedName("id")
     @Expose
-    @PrimaryKey
     private Integer id;
 
     @SerializedName("item_name")
     @Expose
+    @PrimaryKey
     private String item_name;
 
     @SerializedName("counter")

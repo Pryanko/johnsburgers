@@ -23,6 +23,7 @@
     <string name="Counter">Counter</string>
     <string name="AllCost">AllCost</string>
     <string name="yourOrder">YOUR ORDER</string>
+    <string name="deleteItem">DELETE</string>
 
 
 </resources>

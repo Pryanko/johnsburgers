@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.Realm;
+import io.realm.RealmQuery;
 
 import static com.examle.libgo.johnsburgers.tools.Const.EURO;
 
@@ -55,15 +56,24 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.buttonItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 Integer i = realm.where(ItemShop.class).findAll().size();
-                 realm.beginTransaction();
-                 ItemShop itemShop = realm.createObject(ItemShop.class, i);
-                 itemShop.setCost(menuMeal.getCost());
-                 itemShop.setItem_name(menuMeal.getNameMealsMenu());
-                 itemShop.setCounter(1);
-                 realm.commitTransaction();
-                Log.d("RealmMM", realm.where(ItemShop.class).findAll().toString());
-                 bottomBarBadgeHelper.setBottomBadge();
+
+                ItemShop queryItemShop = realm.where(ItemShop.class).equalTo("item_name", menuMeal.getNameMealsMenu()).findFirst();
+                if(queryItemShop == null) {
+                    realm.beginTransaction();
+                    ItemShop itemShop = realm.createObject(ItemShop.class, menuMeal.getNameMealsMenu());
+                    itemShop.setCost(menuMeal.getCost());
+                    //itemShop.setItem_name(menuMeal.getNameMealsMenu());
+                    itemShop.setCounter(1);
+                    realm.commitTransaction();
+                    Log.d("RealmMM", realm.where(ItemShop.class).findAll().toString());
+                    bottomBarBadgeHelper.setBottomBadge();
+                }
+                else {
+                    realm.beginTransaction();
+                    queryItemShop.setCounter(queryItemShop.getCounter() + 1);
+                    queryItemShop.setCost(queryItemShop.getCounter() * menuMeal.getCost());
+                    realm.commitTransaction();
+                }
             }
         });
 

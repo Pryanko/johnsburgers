@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.examle.libgo.johnsburgers.R;
@@ -12,6 +13,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
+
+import static com.examle.libgo.johnsburgers.tools.Const.EURO;
+import static com.examle.libgo.johnsburgers.tools.Const.X;
 
 /**
  * Created by libgo on 12.12.2017.
@@ -38,8 +43,8 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
     public void onBindViewHolder(ItemShopAdapter.ViewHolder holder, int position) {
         ItemShop itemShop = itemShopList.get(position);
         holder.nameItemBasket.setText(itemShop.getItem_name());
-        holder.counterBasket.setText(String.valueOf(itemShop.getCounter()));
-        holder.costBasket.setText(String.valueOf(itemShop.getCost()));
+        holder.counterBasket.setText(X + String.valueOf(itemShop.getCounter()));
+        holder.costBasket.setText(EURO + String.valueOf(itemShop.getCost()));
 
     }
 
@@ -52,7 +57,19 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
         return 0;
     }
 
-     class ViewHolder extends RecyclerView.ViewHolder {
+
+    public void removeItem(int position){
+        Realm realm = Realm.getDefaultInstance();
+        List<ItemShop> list = realm.where(ItemShop.class).findAll();
+        realm.beginTransaction();
+        ItemShop itemShop = list.get(position);
+        itemShop.deleteFromRealm();
+        realm.commitTransaction();
+        notifyItemRemoved(position);
+
+    }
+
+     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.textViewNameItemBasket)
         TextView nameItemBasket;
@@ -60,9 +77,12 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
         TextView counterBasket;
         @BindView(R.id.textViewBasketAllCost)
         TextView costBasket;
+        @BindView(R.id.background_view)
+        RelativeLayout backgroundView;
+        @BindView(R.id.foreground_view)
+        public RelativeLayout foregroundView;
 
-
-         ViewHolder(View itemView) {
+         public ViewHolder(View itemView) {
             super(itemView);
              ButterKnife.bind(this, itemView);
         }
