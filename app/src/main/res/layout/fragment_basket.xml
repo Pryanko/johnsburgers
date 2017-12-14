@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <View
         android:id="@+id/basketView"
         android:layout_width="match_parent"
@@ -32,7 +34,24 @@
         android:layout_marginTop="2dp"
         android:id="@+id/recyclerViewBasket"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" >
+
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:layout_below="@+id/recyclerViewBasket"
+        android:layout_marginTop="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginStart="2dp"
+        android:id="@+id/buttonBasket"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_new_order"
+        android:text="@string/buttonBasket" />
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/item_basket_image"
@@ -60,6 +79,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/NullBasket" />
+
+    <FrameLayout
+        android:id="@+id/order_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
 
 
 </RelativeLayout>

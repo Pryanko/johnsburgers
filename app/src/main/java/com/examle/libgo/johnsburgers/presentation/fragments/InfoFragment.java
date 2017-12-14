@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.R;
@@ -60,8 +62,10 @@ public class InfoFragment extends MvpAppCompatFragment {
     TextView locationText;
     @BindView(R.id.textLink)
     TextView linkText;
-    /*@BindView(R.id.progressBar)
-    ProgressBar progressBar;*/
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
+    @BindView(R.id.info_foreground_view)
+    RelativeLayout foregroundInfoView;
 
 
     @Override
@@ -80,9 +84,11 @@ public class InfoFragment extends MvpAppCompatFragment {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         ButterKnife.bind(this, view);
         if(savedInstanceState == null) {
+            progressBar.setVisibility(View.VISIBLE);
             downloadData();
         }
         if(savedInstanceState != null){
+            progressBar.setVisibility(View.VISIBLE);
             news = savedInstanceState.getParcelableArrayList(KEY_MODEL);
             timings = savedInstanceState.getParcelableArrayList(KEY_MODEL_LOCATION);
             location = savedInstanceState.getParcelable(KEY_LOCATION);
@@ -99,6 +105,8 @@ public class InfoFragment extends MvpAppCompatFragment {
     }
 
     private void downloadData() {
+
+        foregroundInfoView.setVisibility(View.INVISIBLE);
         CompositeDisposable compositeDisposable = new CompositeDisposable();
         ApiService apiService = ApiService.retrofit.create(ApiService.class);
         compositeDisposable.add(apiService.getApi()
@@ -121,6 +129,8 @@ public class InfoFragment extends MvpAppCompatFragment {
     }
 
     private void startAdapter(String s){
+        progressBar.setVisibility(View.INVISIBLE);
+        foregroundInfoView.setVisibility(View.VISIBLE);
         view.setVisibility(View.VISIBLE);
         linearLayoutManager = new LinearLayoutManager(getActivity());
         layoutManagerLocation = new LinearLayoutManager(getActivity());

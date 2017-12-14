@@ -4,12 +4,14 @@ import android.os.Bundle;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -28,7 +30,7 @@ import io.realm.RealmChangeListener;
  * Created by libgo on 03.12.2017.
  */
 
-public class BasketFragment extends MvpAppCompatFragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener{
+public class BasketFragment extends MvpAppCompatFragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, View.OnClickListener {
 
 
     @BindView(R.id.item_basket_image)
@@ -41,9 +43,14 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
     View viewBasket;
     @BindView(R.id.textViewOrder)
     TextView textViewOrder;
+    @BindView(R.id.buttonBasket)
+    Button buttonBasket;
+
 
     private LinearLayoutManager layoutManager;
     private ItemShopAdapter itemShopAdapter;
+
+
 
 
     @Override
@@ -58,6 +65,7 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
         ButterKnife.bind(this, view);
 
         Realm realm = Realm.getDefaultInstance();
+        buttonListener();
         itemShopAdapter = new ItemShopAdapter(realm.where(ItemShop.class).findAll());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewBasket.setAdapter(itemShopAdapter);
@@ -67,6 +75,7 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
            // recyclerViewBasket.setVisibility(View.INVISIBLE);
             viewBasket.setVisibility(View.INVISIBLE);
             textViewOrder.setVisibility(View.INVISIBLE);
+            buttonBasket.setVisibility(View.INVISIBLE);
 
         }
         else {
@@ -88,6 +97,7 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
                     textNullBasket.setVisibility(View.VISIBLE);
                     viewBasket.setVisibility(View.INVISIBLE);
                     textViewOrder.setVisibility(View.INVISIBLE);
+                    buttonBasket.setVisibility(View.INVISIBLE);
 
                 }
 
@@ -105,6 +115,7 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
         //recyclerViewBasket.setVisibility(View.VISIBLE);
         viewBasket.setVisibility(View.VISIBLE);
         textViewOrder.setVisibility(View.VISIBLE);
+        buttonBasket.setVisibility(View.VISIBLE);
         recyclerViewBasket.setLayoutManager(layoutManager);
 
     }
@@ -112,5 +123,19 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
          itemShopAdapter.removeItem(viewHolder.getAdapterPosition());
+    }
+
+
+
+    private void buttonListener() {
+        buttonBasket.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        buttonBasket.setVisibility(View.INVISIBLE);
+        getChildFragmentManager().beginTransaction().replace(R.id.order_container, new OrderFragment()).commit();
+
     }
 }

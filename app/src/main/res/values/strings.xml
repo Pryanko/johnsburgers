@@ -24,6 +24,10 @@
     <string name="AllCost">AllCost</string>
     <string name="yourOrder">YOUR ORDER</string>
     <string name="deleteItem">DELETE</string>
+    <string name="buttonBasket">TO ORDER</string>
+    <string name="todo">TODO</string>
+    <string name="name">FirstName</string>
+    <string name="nameA">AdressName</string>
 
 
 </resources>

@@ -95,6 +95,7 @@ public class HeadActivity extends MvpAppCompatActivity {
     }
 
     private void setSwipeOptions(){
+
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), infoFragment, menuFragment, basketFragment);
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageTransformer(true, new ViewAnimationFragment());
