@@ -14,13 +14,10 @@ import com.examle.libgo.johnsburgers.presentation.fragments.InfoFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HeadActivity extends MvpAppCompatActivity {
-
 
     //Bind View
     @BindView(R.id.app_toolbar)
@@ -45,32 +42,27 @@ public class HeadActivity extends MvpAppCompatActivity {
         infoFragment = new InfoFragment();
         menuFragment = new MenuFragment();
         basketFragment = new BasketFragment();
-
         setSwipeOptions();
-
         tabSelectListener();
         viewPageListener();
         setBottomBarBadge();
     }
 
       private void tabSelectListener(){
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(int tabId) {
-                switch (tabId){
-                    case R.id.tab_burger_info:
-                        viewPager.setCurrentItem(0);
-                        textToolbar.setText(R.string.app_name);
-                        break;
-                    case R.id.tab_menu:
-                        viewPager.setCurrentItem(1);
-                        textToolbar.setText(R.string.menu_tab);
-                        break;
-                    case R.id.tab_basket:
-                        viewPager.setCurrentItem(2);
-                        textToolbar.setText(R.string.basket_tab);
-                        break;
-                }
+        bottomBar.setOnTabSelectListener(tabId -> {
+            switch (tabId){
+                case R.id.tab_burger_info:
+                    viewPager.setCurrentItem(0);
+                    textToolbar.setText(R.string.app_name);
+                    break;
+                case R.id.tab_menu:
+                    viewPager.setCurrentItem(1);
+                    textToolbar.setText(R.string.menu_tab);
+                    break;
+                case R.id.tab_basket:
+                    viewPager.setCurrentItem(2);
+                    textToolbar.setText(R.string.basket_tab);
+                    break;
             }
         });
     }
@@ -95,16 +87,14 @@ public class HeadActivity extends MvpAppCompatActivity {
     }
 
     private void setSwipeOptions(){
-
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), infoFragment, menuFragment, basketFragment);
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageTransformer(true, new ViewAnimationFragment());
-
     }
 
     private void setBottomBarBadge(){
         bottomBarBadgeHelper.setBottomBar(bottomBar);
-        bottomBarBadgeHelper.setBottomBadge();
+        bottomBarBadgeHelper.changeBottomBadge();
     }
 }
 

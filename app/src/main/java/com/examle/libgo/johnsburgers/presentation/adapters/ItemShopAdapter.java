@@ -1,5 +1,6 @@
 package com.examle.libgo.johnsburgers.presentation.adapters;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +8,12 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.ItemShop;
+import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
+import com.examle.libgo.johnsburgers.tools.DataBaseSource;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,7 +31,8 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
 
 
     private List<ItemShop> itemShopList;
-
+    private DataBaseSource dataBaseSource = App.getAppComponent().getDataBaseSource();
+    private BottomBarBadgeHelper bottomBarBadgeHelper = App.getAppComponent().getBottomBarBadgeHelper();
 
     public ItemShopAdapter(List<ItemShop> itemShopList) {
         this.itemShopList = itemShopList;
@@ -39,6 +45,7 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
                 .inflate(R.layout.item_shop_card, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ItemShopAdapter.ViewHolder holder, int position) {
         ItemShop itemShop = itemShopList.get(position);
@@ -57,15 +64,11 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
         return 0;
     }
 
-
     public void removeItem(int position){
-        Realm realm = Realm.getDefaultInstance();
-        List<ItemShop> list = realm.where(ItemShop.class).findAll();
-        realm.beginTransaction();
-        ItemShop itemShop = list.get(position);
-        itemShop.deleteFromRealm();
-        realm.commitTransaction();
+
+        dataBaseSource.deleteItem(position);
         notifyItemRemoved(position);
+        bottomBarBadgeHelper.changeBottomBadge();
 
     }
 

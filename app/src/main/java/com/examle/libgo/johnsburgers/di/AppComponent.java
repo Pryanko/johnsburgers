@@ -4,6 +4,7 @@ import com.examle.libgo.johnsburgers.data.ServerResponse;
 import com.examle.libgo.johnsburgers.di.modules.HeadModule;
 import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
+import com.examle.libgo.johnsburgers.tools.DataBaseSource;
 
 import javax.inject.Singleton;
 
@@ -17,8 +18,6 @@ public interface AppComponent {
 
     BottomBarBadgeHelper getBottomBarBadgeHelper();
 
-    HeadPresenters getHeadPresenters();
-
-    ServerResponse getServerResponse();
+    DataBaseSource getDataBaseSource();
 
 }

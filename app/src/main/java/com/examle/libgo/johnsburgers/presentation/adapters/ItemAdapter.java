@@ -1,29 +1,20 @@
 package com.examle.libgo.johnsburgers.presentation.adapters;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.data.pojos.ItemShop;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
-
-import org.w3c.dom.Text;
-
+import com.examle.libgo.johnsburgers.tools.DataBaseSource;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
-import io.realm.RealmQuery;
-
 import static com.examle.libgo.johnsburgers.tools.Const.EURO;
 
 /**
@@ -34,9 +25,11 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<MenuMeal> mealList;
     private BottomBarBadgeHelper bottomBarBadgeHelper = App.getAppComponent().getBottomBarBadgeHelper();
+    private DataBaseSource dataBaseSource = App.getAppComponent().getDataBaseSource();
 
     public ItemAdapter(List<MenuMeal> list){
         this.mealList = list;
+
     }
 
     @Override
@@ -45,38 +38,23 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                 .inflate(R.layout.item_card, parent, false));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
-        Realm realm = Realm.getDefaultInstance();
-
         MenuMeal menuMeal = mealList.get(position);
         holder.textViewNameItem.setText(menuMeal.getNameMealsMenu());
         holder.textViewDescribeItem.setText(menuMeal.getDescribeTextMenu());
         holder.textViewCost.setText(EURO + String.valueOf(menuMeal.getCost()));
-        holder.buttonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        holder.buttonItem.setOnClickListener(view -> {
 
-                ItemShop queryItemShop = realm.where(ItemShop.class).equalTo("item_name", menuMeal.getNameMealsMenu()).findFirst();
-                if(queryItemShop == null) {
-                    realm.beginTransaction();
-                    ItemShop itemShop = realm.createObject(ItemShop.class, menuMeal.getNameMealsMenu());
-                    itemShop.setCost(menuMeal.getCost());
-                    //itemShop.setItem_name(menuMeal.getNameMealsMenu());
-                    itemShop.setCounter(1);
-                    realm.commitTransaction();
-                    Log.d("RealmMM", realm.where(ItemShop.class).findAll().toString());
-                    bottomBarBadgeHelper.setBottomBadge();
-                }
-                else {
-                    realm.beginTransaction();
-                    queryItemShop.setCounter(queryItemShop.getCounter() + 1);
-                    queryItemShop.setCost(queryItemShop.getCounter() * menuMeal.getCost());
-                    realm.commitTransaction();
-                }
+            if(dataBaseSource.getValidItem(menuMeal.getNameMealsMenu())){
+                dataBaseSource.addItem(menuMeal.getNameMealsMenu(), menuMeal.getCost());
             }
-        });
-
+            else{
+                dataBaseSource.changeCounterCost(menuMeal.getNameMealsMenu());
+            }
+            bottomBarBadgeHelper.changeBottomBadge();
+    });
     }
 
     @Override

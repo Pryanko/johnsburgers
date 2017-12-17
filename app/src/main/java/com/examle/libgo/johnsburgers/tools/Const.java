@@ -14,5 +14,6 @@ public class Const {
     public final static String LOG_TAG = "SERVER:  ";
     public final static String EURO = "€ ";
     public final static String X = "X ";
+    public final static String REALM_PRIMARY_KEY = "item_name";
 
 }

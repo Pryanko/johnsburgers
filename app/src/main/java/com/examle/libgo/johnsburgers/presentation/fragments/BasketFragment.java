@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -13,25 +12,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.data.pojos.ItemShop;
 import com.examle.libgo.johnsburgers.presentation.adapters.ItemShopAdapter;
+import com.examle.libgo.johnsburgers.tools.DataBaseSource;
 import com.examle.libgo.johnsburgers.tools.RecyclerItemTouchHelper;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
-import io.realm.RealmChangeListener;
 
 /**
  * Created by libgo on 03.12.2017.
  */
 
 public class BasketFragment extends MvpAppCompatFragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, View.OnClickListener {
-
 
     @BindView(R.id.item_basket_image)
     SimpleDraweeView item_basket_image;
@@ -46,12 +41,9 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
     @BindView(R.id.buttonBasket)
     Button buttonBasket;
 
-
     private LinearLayoutManager layoutManager;
     private ItemShopAdapter itemShopAdapter;
-
-
-
+    private DataBaseSource dataBaseSource = App.getAppComponent().getDataBaseSource();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -64,15 +56,17 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
         View view = inflater.inflate(R.layout.fragment_basket, container, false);
         ButterKnife.bind(this, view);
 
-        Realm realm = Realm.getDefaultInstance();
         buttonListener();
-        itemShopAdapter = new ItemShopAdapter(realm.where(ItemShop.class).findAll());
+
+        itemShopAdapter = new ItemShopAdapter(dataBaseSource.getListItemShop());
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerViewBasket.setAdapter(itemShopAdapter);
+
         ItemTouchHelper.SimpleCallback itemTouchHelper = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerViewBasket);
-        if(realm.where(ItemShop.class).findAll().size() == 0){
-           // recyclerViewBasket.setVisibility(View.INVISIBLE);
+
+
+        if(dataBaseSource.getFillTable()){
             viewBasket.setVisibility(View.INVISIBLE);
             textViewOrder.setVisibility(View.INVISIBLE);
             buttonBasket.setVisibility(View.INVISIBLE);
@@ -82,42 +76,31 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
             changeView();
         }
 
-
-
-        realm.addChangeListener(new RealmChangeListener<Realm>() {
-            @Override
-            public void onChange(Realm realm) {
-                if(realm.where(ItemShop.class).findAll().size() != 0) {
-                    changeView();
-                    itemShopAdapter.notifyDataSetChanged();
-                    recyclerViewBasket.smoothScrollToPosition(recyclerViewBasket.getAdapter().getItemCount() - 1);
-                }
-                else {
-                    item_basket_image.setVisibility(View.VISIBLE);
-                    textNullBasket.setVisibility(View.VISIBLE);
-                    viewBasket.setVisibility(View.INVISIBLE);
-                    textViewOrder.setVisibility(View.INVISIBLE);
-                    buttonBasket.setVisibility(View.INVISIBLE);
-
-                }
-
-
+        dataBaseSource.getRealm().addChangeListener(realm -> {
+            if(dataBaseSource.getFillTable()) {
+                item_basket_image.setVisibility(View.VISIBLE);
+                textNullBasket.setVisibility(View.VISIBLE);
+                viewBasket.setVisibility(View.INVISIBLE);
+                textViewOrder.setVisibility(View.INVISIBLE);
+                buttonBasket.setVisibility(View.INVISIBLE);
             }
-        });
+            else {
+                changeView();
+                itemShopAdapter.notifyDataSetChanged();
+                recyclerViewBasket.smoothScrollToPosition(recyclerViewBasket.getAdapter().getItemCount() - 1);
+            }
 
+        });
         return view;
     }
-
 
     protected void changeView(){
         item_basket_image.setVisibility(View.INVISIBLE);
         textNullBasket.setVisibility(View.INVISIBLE);
-        //recyclerViewBasket.setVisibility(View.VISIBLE);
         viewBasket.setVisibility(View.VISIBLE);
         textViewOrder.setVisibility(View.VISIBLE);
         buttonBasket.setVisibility(View.VISIBLE);
         recyclerViewBasket.setLayoutManager(layoutManager);
-
     }
 
     @Override
@@ -125,17 +108,13 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
          itemShopAdapter.removeItem(viewHolder.getAdapterPosition());
     }
 
-
-
     private void buttonListener() {
         buttonBasket.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View view) {
         buttonBasket.setVisibility(View.INVISIBLE);
         getChildFragmentManager().beginTransaction().replace(R.id.order_container, new OrderFragment()).commit();
-
     }
 }
