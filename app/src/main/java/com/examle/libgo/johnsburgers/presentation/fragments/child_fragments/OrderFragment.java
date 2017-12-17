@@ -1,4 +1,4 @@
-package com.examle.libgo.johnsburgers.presentation.fragments;
+package com.examle.libgo.johnsburgers.presentation.fragments.child_fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
 
 public class OrderFragment extends MvpAppCompatFragment {
@@ -31,12 +31,7 @@ public class OrderFragment extends MvpAppCompatFragment {
         ButterKnife.bind(this, view);
         textView.setVisibility(View.INVISIBLE);
 
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                textView.setVisibility(View.VISIBLE);
-            }
-        });
+        editText.setOnFocusChangeListener((view1, b) -> textView.setVisibility(View.VISIBLE));
 
         return view;
 

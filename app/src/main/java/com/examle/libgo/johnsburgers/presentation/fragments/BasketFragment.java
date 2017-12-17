@@ -1,7 +1,6 @@
 package com.examle.libgo.johnsburgers.presentation.fragments;
 
 import android.os.Bundle;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,16 +15,15 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.adapters.ItemShopAdapter;
+import com.examle.libgo.johnsburgers.presentation.fragments.child_fragments.OrderFragment;
 import com.examle.libgo.johnsburgers.tools.DataBaseSource;
 import com.examle.libgo.johnsburgers.tools.RecyclerItemTouchHelper;
 import com.facebook.drawee.view.SimpleDraweeView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
-
 public class BasketFragment extends MvpAppCompatFragment implements RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, View.OnClickListener {
 
     @BindView(R.id.item_basket_image)
@@ -64,7 +62,6 @@ public class BasketFragment extends MvpAppCompatFragment implements RecyclerItem
 
         ItemTouchHelper.SimpleCallback itemTouchHelper = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelper).attachToRecyclerView(recyclerViewBasket);
-
 
         if(dataBaseSource.getFillTable()){
             viewBasket.setVisibility(View.INVISIBLE);

@@ -3,7 +3,6 @@ package com.examle.libgo.johnsburgers.presentation.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,35 +16,27 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.data.ServerResponse;
-import com.examle.libgo.johnsburgers.data.pojos.Location;
-import com.examle.libgo.johnsburgers.data.pojos.News;
-import com.examle.libgo.johnsburgers.data.pojos.Timing;
+import com.examle.libgo.johnsburgers.data.parcelers.ServerResponse;
 import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.InfoAdapter;
 import com.examle.libgo.johnsburgers.presentation.adapters.LocationAdapter;
-import java.util.ArrayList;
-import java.util.List;
+import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import static com.examle.libgo.johnsburgers.tools.Const.KEY_LOCATION;
-import static com.examle.libgo.johnsburgers.tools.Const.KEY_MODEL;
-import static com.examle.libgo.johnsburgers.tools.Const.KEY_MODEL_LOCATION;
+import static com.examle.libgo.johnsburgers.tools.Const.KEY_MODEL_INFO;
 import static com.examle.libgo.johnsburgers.tools.Const.LOG_TAG;
 
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
 
 public class InfoFragment extends MvpAppCompatFragment {
 
     private ServerResponse response;
-    private List<News> news;
-    private List<Timing> timings;
-    private Location location;
+
     LinearLayoutManager linearLayoutManager;
     LinearLayoutManager layoutManagerLocation;
 
@@ -71,11 +62,6 @@ public class InfoFragment extends MvpAppCompatFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setRetainInstance(true);
-
-
-
-
     }
 
     @Nullable
@@ -89,10 +75,7 @@ public class InfoFragment extends MvpAppCompatFragment {
         }
         if(savedInstanceState != null){
             progressBar.setVisibility(View.VISIBLE);
-            news = savedInstanceState.getParcelableArrayList(KEY_MODEL);
-            timings = savedInstanceState.getParcelableArrayList(KEY_MODEL_LOCATION);
-            location = savedInstanceState.getParcelable(KEY_LOCATION);
-            Log.d("zSTATE", location.getAdressName());
+            response = Parcels.unwrap(savedInstanceState.getParcelable(KEY_MODEL_INFO));
             startAdapter("s");
         }
 
@@ -113,7 +96,6 @@ public class InfoFragment extends MvpAppCompatFragment {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::startViewNews, this::handleError));
-
     }
 
     private void handleError(Throwable throwable) {
@@ -125,7 +107,6 @@ public class InfoFragment extends MvpAppCompatFragment {
         Log.d(LOG_TAG, response.toString() );
         Log.d(LOG_TAG, response.getTimings().toString());
         startAdapter("startViewNews");
-
     }
 
     private void startAdapter(String s){
@@ -138,42 +119,27 @@ public class InfoFragment extends MvpAppCompatFragment {
         recyclerView.setNestedScrollingEnabled(false);
         recyclerViewLocation.setLayoutManager(layoutManagerLocation);
         recyclerViewLocation.setNestedScrollingEnabled(false);
-        if(news == null) {
-            news = response.getNews();
-        }
-        if(timings == null){
-            timings = response.getTimings();
-        }
-        if(location == null){
-            location = response.getLocation();
-        }
 
-        InfoAdapter infoAdapter = new InfoAdapter(news);
-        LocationAdapter locationAdapter = new LocationAdapter(timings);
+        InfoAdapter infoAdapter = new InfoAdapter(response.getNews());
+        LocationAdapter locationAdapter = new LocationAdapter(response.getTimings());
 
         recyclerView.setAdapter(infoAdapter);
         recyclerViewLocation.setAdapter(locationAdapter);
-        Log.d(LOG_TAG + s, news.toString());
-        addressText.setText(location.getAdressName());
-        locationText.setText(location.getInfoLocation());
+        Log.d(LOG_TAG + s, response.getNews().toString());
+        addressText.setText(response.getLocation().getAdressName());
+        locationText.setText(response.getLocation().getInfoLocation());
 
-        linkText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Uri urlLink = Uri.parse(response.getLink());
-                Intent openLink = new Intent(Intent.ACTION_VIEW, urlLink);
-                startActivity(openLink);
-            }
+        linkText.setOnClickListener(view -> {
+            Uri urlLink = Uri.parse(response.getLink());
+            Intent openLink = new Intent(Intent.ACTION_VIEW, urlLink);
+            startActivity(openLink);
         });
-
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelableArrayList(KEY_MODEL, (ArrayList<? extends Parcelable>) news);
-        outState.putParcelableArrayList(KEY_MODEL_LOCATION, (ArrayList<? extends Parcelable>) timings);
-        outState.putParcelable(KEY_LOCATION, location);
+        outState.putParcelable(KEY_MODEL_INFO, Parcels.wrap(response));
         }
     }
 

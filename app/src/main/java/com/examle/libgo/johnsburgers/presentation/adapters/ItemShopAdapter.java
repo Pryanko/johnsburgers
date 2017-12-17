@@ -7,28 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.ItemShop;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.examle.libgo.johnsburgers.tools.DataBaseSource;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.realm.Realm;
-
 import static com.examle.libgo.johnsburgers.tools.Const.EURO;
 import static com.examle.libgo.johnsburgers.tools.Const.X;
 
 /**
- * Created by libgo on 12.12.2017.
+ * @author libgo (12.12.2017)
  */
 
 public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHolder> {
-
 
     private List<ItemShop> itemShopList;
     private DataBaseSource dataBaseSource = App.getAppComponent().getDataBaseSource();

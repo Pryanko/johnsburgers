@@ -4,8 +4,10 @@ import android.graphics.Color;
 import com.examle.libgo.johnsburgers.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
+import static com.examle.libgo.johnsburgers.tools.Const.COLOR_STRING;
+
 /**
- * Created by libgo on 11.12.2017.
+ * @author libgo (11.12.2017)
  */
 public class BottomBarBadgeHelper {
 
@@ -18,11 +20,10 @@ public class BottomBarBadgeHelper {
 
     public void setBottomBar(BottomBar bottomBar){
         basket = bottomBar.getTabWithId(R.id.tab_basket);
-        basket.setBadgeBackgroundColor(Color.parseColor("#352f2d"));
+        basket.setBadgeBackgroundColor(Color.parseColor(COLOR_STRING));
     }
 
     public void changeBottomBadge(){
         basket.setBadgeCount(dataBaseSource.getSizeTable());
     }
-
 }

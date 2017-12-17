@@ -53,15 +53,15 @@ public class HeadActivity extends MvpAppCompatActivity {
             switch (tabId){
                 case R.id.tab_burger_info:
                     viewPager.setCurrentItem(0);
-                    textToolbar.setText(R.string.app_name);
+                    textToolbar.setText(getString(R.string.app_name));
                     break;
                 case R.id.tab_menu:
                     viewPager.setCurrentItem(1);
-                    textToolbar.setText(R.string.menu_tab);
+                    textToolbar.setText(getString(R.string.menu_tab));
                     break;
                 case R.id.tab_basket:
                     viewPager.setCurrentItem(2);
-                    textToolbar.setText(R.string.basket_tab);
+                    textToolbar.setText(getString(R.string.basket_tab));
                     break;
             }
         });

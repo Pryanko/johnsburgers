@@ -1,4 +1,4 @@
-package com.examle.libgo.johnsburgers.data;
+package com.examle.libgo.johnsburgers.data.parcelers;
 
 import com.examle.libgo.johnsburgers.data.pojos.Location;
 import com.examle.libgo.johnsburgers.data.pojos.News;
@@ -6,12 +6,14 @@ import com.examle.libgo.johnsburgers.data.pojos.Timing;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
-
+@Parcel
 public class ServerResponse {
 
     @SerializedName("status_code")

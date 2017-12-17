@@ -3,12 +3,14 @@ package com.examle.libgo.johnsburgers.data.pojos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+
 import java.util.List;
 
 /**
- * Created by libgo on 11.12.2017.
+ * @author libgo (11.12.2017)
  */
-
+@Parcel
 public class MenuMealsAll {
     @SerializedName("menu_meals")
     @Expose

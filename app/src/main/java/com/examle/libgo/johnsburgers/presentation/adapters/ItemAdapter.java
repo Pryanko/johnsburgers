@@ -16,11 +16,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import static com.examle.libgo.johnsburgers.tools.Const.EURO;
-
 /**
- * Created by libgo on 11.12.2017.
+ * @author libgo (11.12.2017)
  */
-
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<MenuMeal> mealList;

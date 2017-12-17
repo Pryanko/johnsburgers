@@ -1,16 +1,14 @@
 package com.examle.libgo.johnsburgers;
 
 import android.app.Application;
-
 import com.examle.libgo.johnsburgers.di.AppComponent;
 import com.examle.libgo.johnsburgers.di.DaggerAppComponent;
 import com.facebook.drawee.backends.pipeline.Fresco;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
 
 public class App extends Application {

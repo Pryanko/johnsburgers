@@ -1,15 +1,14 @@
 package com.examle.libgo.johnsburgers.data.pojos;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+import org.parceler.Parcel;
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
-
-public class News implements Parcelable{
+@Parcel
+public class News {
     @SerializedName("name_news")
     @Expose
     private String nameNews;
@@ -24,24 +23,6 @@ public class News implements Parcelable{
     @Expose
     private Integer color;
 
-    protected News(Parcel in) {
-        nameNews = in.readString();
-        textNews = in.readString();
-        scrNews = in.readString();
-        color = in.readInt();
-    }
-
-    public static final Creator<News> CREATOR = new Creator<News>() {
-        @Override
-        public News createFromParcel(Parcel in) {
-            return new News(in);
-        }
-
-        @Override
-        public News[] newArray(int size) {
-            return new News[size];
-        }
-    };
 
     public String getNameNews() {
         return nameNews;
@@ -75,21 +56,6 @@ public class News implements Parcelable{
         this.color = color;
     }
 
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(nameNews);
-        parcel.writeString(textNews);
-        parcel.writeString(scrNews);
-        parcel.writeInt(color);
-
-    }
 }
 
 

@@ -2,13 +2,11 @@ package com.examle.libgo.johnsburgers.data.pojos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-
-
+import org.parceler.Parcel;
 /**
- * Created by libgo on 11.12.2017.
+ * @author libgo (11.12.2017)
  */
-
+@Parcel
 public class MenuMeal {
 
     @SerializedName("cost")
@@ -44,5 +42,4 @@ public class MenuMeal {
     public void setDescribeTextMenu(String describeTextMenu) {
         this.describeTextMenu = describeTextMenu;
     }
-
 }
