@@ -15,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
 
 public class MenuFragment extends MvpAppCompatFragment {
@@ -41,11 +41,8 @@ public class MenuFragment extends MvpAppCompatFragment {
         swipeMenuAdapter.addTabTitle(getResources().getString(R.string.text_menu_MEALS));
         swipeMenuAdapter.addTabTitle(getResources().getString(R.string.text_menu_DRINKS));
         viewPager.setAdapter(swipeMenuAdapter);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
         return view;
-
-
-
-
     }
 }

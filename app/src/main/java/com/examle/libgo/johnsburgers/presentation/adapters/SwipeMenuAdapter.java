@@ -4,8 +4,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.fragments.child_fragments.DrinksFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.child_fragments.MealsFragment;
 
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by libgo on 08.12.2017.
+ * @author libgo (08.12.2017)
  */
 
 public class SwipeMenuAdapter extends FragmentPagerAdapter {
@@ -36,7 +34,6 @@ public class SwipeMenuAdapter extends FragmentPagerAdapter {
 
         }
 
-
     @Override
     public Fragment getItem(int position) {
 
@@ -51,9 +48,6 @@ public class SwipeMenuAdapter extends FragmentPagerAdapter {
                 return null;
 
         }
-
-
-
 
     }
 

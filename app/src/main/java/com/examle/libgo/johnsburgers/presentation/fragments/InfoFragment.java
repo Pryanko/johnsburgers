@@ -117,8 +117,10 @@ public class InfoFragment extends MvpAppCompatFragment {
         layoutManagerLocation = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setFocusable(false);
         recyclerViewLocation.setLayoutManager(layoutManagerLocation);
         recyclerViewLocation.setNestedScrollingEnabled(false);
+        recyclerViewLocation.setFocusable(false);
 
         InfoAdapter infoAdapter = new InfoAdapter(response.getNews());
         LocationAdapter locationAdapter = new LocationAdapter(response.getTimings());

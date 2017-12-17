@@ -34,7 +34,7 @@ public class DrinksFragment extends MvpAppCompatFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        downloadData();
+
     }
 
     @Nullable

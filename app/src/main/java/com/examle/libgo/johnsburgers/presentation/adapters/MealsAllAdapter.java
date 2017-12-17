@@ -18,7 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by libgo on 11.12.2017.
+ * @author libgo (11.12.2017)
  */
 
 public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHolder> {
@@ -50,11 +50,12 @@ public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHo
         holder.mealsItemImage.setImageURI(menuMeal.getScrImage());
         holder.textNameMeals.setText(menuMeal.getNameMeals());
         holder.textViewDescribe.setText(menuMeal.getDescribeText());
-        LinearLayoutManager lm = new LinearLayoutManager(context);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
         ItemAdapter itemAdapter = new ItemAdapter(menuMeal.getMenuMeals());
-        holder.recyclerView.setLayoutManager(lm);
+        holder.recyclerView.setLayoutManager(linearLayoutManager);
+        holder.recyclerView.setFocusable(false);
         holder.recyclerView.setAdapter(itemAdapter);
-        holder.recyclerView.setNestedScrollingEnabled(false);
+
     }
 
     @Override
