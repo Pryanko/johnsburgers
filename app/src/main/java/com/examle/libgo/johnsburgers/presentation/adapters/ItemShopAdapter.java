@@ -15,8 +15,8 @@ import com.examle.libgo.johnsburgers.tools.DataBaseSource;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import static com.examle.libgo.johnsburgers.tools.Const.EURO;
-import static com.examle.libgo.johnsburgers.tools.Const.X;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.EURO;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.X;
 
 /**
  * @author libgo (12.12.2017)

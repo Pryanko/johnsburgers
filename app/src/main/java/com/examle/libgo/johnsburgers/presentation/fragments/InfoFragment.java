@@ -26,8 +26,8 @@ import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import static com.examle.libgo.johnsburgers.tools.Const.KEY_MODEL_INFO;
-import static com.examle.libgo.johnsburgers.tools.Const.LOG_TAG;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_INFO;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.LOG_TAG;
 
 /**
  * @author libgo (03.12.2017)
@@ -117,7 +117,6 @@ public class InfoFragment extends MvpAppCompatFragment {
         layoutManagerLocation = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setFocusable(false);
         recyclerViewLocation.setLayoutManager(layoutManagerLocation);
         recyclerViewLocation.setNestedScrollingEnabled(false);
         recyclerViewLocation.setFocusable(false);

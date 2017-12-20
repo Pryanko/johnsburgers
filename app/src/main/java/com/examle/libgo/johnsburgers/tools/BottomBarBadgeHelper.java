@@ -4,7 +4,7 @@ import android.graphics.Color;
 import com.examle.libgo.johnsburgers.R;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
-import static com.examle.libgo.johnsburgers.tools.Const.COLOR_STRING;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.COLOR_STRING;
 
 /**
  * @author libgo (11.12.2017)

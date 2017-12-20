@@ -7,13 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMealsAll;
 import com.facebook.drawee.view.SimpleDraweeView;
-
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -23,16 +20,14 @@ import butterknife.ButterKnife;
 
 public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHolder> {
 
-
-
     private List<MenuMealsAll> mealList;
     private Context context;
 
     public MealsAllAdapter(List<MenuMealsAll> list, Context mContext){
         this.mealList = list;
         this.context = mContext;
-    }
 
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

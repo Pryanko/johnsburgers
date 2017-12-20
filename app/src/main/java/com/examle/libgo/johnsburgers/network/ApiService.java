@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
-import static com.examle.libgo.johnsburgers.tools.Const.API_URL;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.API_URL;
 
 /**
  * @author libgo (03.12.2017)

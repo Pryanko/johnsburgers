@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import static com.examle.libgo.johnsburgers.tools.Const.KEY_MODEL_DRINKS;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_DRINKS;
 /**
  * @author libgo (08.12.2017)
  */

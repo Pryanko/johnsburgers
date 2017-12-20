@@ -13,12 +13,13 @@ import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeMenuAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 
 /**
  * @author libgo (03.12.2017)
  */
 
-public class MenuFragment extends MvpAppCompatFragment {
+public class MenuFragment extends MvpAppCompatFragment{
 
     //Bind
     @BindView(R.id.tabLayout)
@@ -45,4 +46,6 @@ public class MenuFragment extends MvpAppCompatFragment {
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
+
+
 }

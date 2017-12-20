@@ -4,9 +4,9 @@ import com.examle.libgo.johnsburgers.data.pojos.ItemShop;
 import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import static com.examle.libgo.johnsburgers.tools.Const.REALM_PRIMARY_KEY;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.REALM_PRIMARY_KEY;
 /**
- * Created by libgo on 17.12.2017.
+ * @author libgo (17.12.2017)
  */
 public class DataBaseSource {
 

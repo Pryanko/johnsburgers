@@ -14,6 +14,7 @@ import com.examle.libgo.johnsburgers.data.parcelers.MealsResponse;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMealsAll;
 import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.MealsAllAdapter;
+
 import org.parceler.Parcels;
 import java.util.List;
 import butterknife.BindView;
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
-import static com.examle.libgo.johnsburgers.tools.Const.KEY_MODEL_MEALS;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_MEALS;
 /**
  * @author libgo (08.12.2017)
  */
@@ -48,6 +49,7 @@ public class MealsFragment extends MvpAppCompatFragment {
             mealsResponse = Parcels.unwrap(savedInstanceState.getParcelable(KEY_MODEL_MEALS));
             startViewMeals(mealsResponse);
         }
+
         return view;
     }
 

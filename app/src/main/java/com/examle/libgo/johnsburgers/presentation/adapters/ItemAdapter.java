@@ -10,22 +10,27 @@ import android.widget.TextView;
 import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
+import com.examle.libgo.johnsburgers.layout.ExpandCardLayout;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.examle.libgo.johnsburgers.tools.DataBaseSource;
+import java.util.HashSet;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import static com.examle.libgo.johnsburgers.tools.Const.EURO;
+import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.EURO;
 /**
  * @author libgo (11.12.2017)
  */
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     private List<MenuMeal> mealList;
+    private HashSet<Integer> expandedPositionSet;
     private BottomBarBadgeHelper bottomBarBadgeHelper = App.getAppComponent().getBottomBarBadgeHelper();
     private DataBaseSource dataBaseSource = App.getAppComponent().getDataBaseSource();
 
+
     public ItemAdapter(List<MenuMeal> list){
+        expandedPositionSet = new HashSet<>();
         this.mealList = list;
 
     }
@@ -39,6 +44,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ItemAdapter.ViewHolder holder, int position) {
+        holder.updateItem(position);
         MenuMeal menuMeal = mealList.get(position);
         holder.textViewNameItem.setText(menuMeal.getNameMealsMenu());
         holder.textViewDescribeItem.setText(menuMeal.getDescribeTextMenu());
@@ -53,6 +59,24 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
             }
             bottomBarBadgeHelper.changeBottomBadge();
     });
+    }
+
+    private void registerExpand(int position) {
+        if (expandedPositionSet.contains(position)) {
+            removeExpand(position);
+        } else {
+            addExpand(position);
+
+        }
+    }
+
+    private void removeExpand(int position) {
+        expandedPositionSet.remove(position);
+    }
+
+
+    private void addExpand(int position){
+        expandedPositionSet.add(position);
     }
 
     @Override
@@ -73,10 +97,17 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         TextView textViewCost;
         @BindView(R.id.buttonItem)
         Button buttonItem;
+        @BindView(R.id.expand_layout)
+        ExpandCardLayout expandCardLayout;
 
-         ViewHolder(View itemView) {
+         private ViewHolder(View itemView) {
             super(itemView);
              ButterKnife.bind(this, itemView);
         }
-    }
+
+         private void updateItem(int position) {
+             expandCardLayout.setOnExpandListener(expanded -> registerExpand(position));
+             expandCardLayout.setExpand(expandedPositionSet.contains(position));
+         }
+     }
 }

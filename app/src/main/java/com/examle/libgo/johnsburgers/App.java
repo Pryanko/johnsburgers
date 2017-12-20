@@ -20,6 +20,7 @@ public class App extends Application {
         super.onCreate();
 
         appComponent = DaggerAppComponent.create();
+
         Fresco.initialize(this);
 
         Realm.init(getApplicationContext());
