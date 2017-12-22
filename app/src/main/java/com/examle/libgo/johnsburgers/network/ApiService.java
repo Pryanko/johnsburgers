@@ -21,10 +21,10 @@ public interface ApiService {
     @GET("ceYlLNevkO?indent=2")
     Observable<ServerResponse> getApi();
 
-    @GET("cvrhEatlaq?indent=2")
+    @GET("bUuzHbnmNu?indent=2")
     Observable<MealsResponse> getMenuMeals();
 
-    @GET("bUdsdpCeMi?indent=2")
+    @GET("bUBLKHxArS?indent=2")
     Observable<DrinkResponse> getMenuDrinks();
 
 
@@ -34,3 +34,6 @@ public interface ApiService {
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }
+//http://www.json-generator.com/api/json/get/bUBLKHxArS?indent=2    дринк.
+
+ //http://www.json-generator.com/api/json/get/bUuzHbnmNu?indent=2  еда

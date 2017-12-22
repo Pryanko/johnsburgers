@@ -18,6 +18,9 @@ public class MenuMeal {
     @SerializedName("describe_text_menu")
     @Expose
     private String describeTextMenu;
+    @SerializedName("scr_image")
+    @Expose
+    private String scr_image;
 
     public Integer getCost() {
         return cost;
@@ -41,5 +44,13 @@ public class MenuMeal {
 
     public void setDescribeTextMenu(String describeTextMenu) {
         this.describeTextMenu = describeTextMenu;
+    }
+
+    public String getScr_image() {
+        return scr_image;
+    }
+
+    public void setScr_image(String scr_image) {
+        this.scr_image = scr_image;
     }
 }

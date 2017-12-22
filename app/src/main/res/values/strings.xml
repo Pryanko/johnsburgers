@@ -28,6 +28,7 @@
     <string name="todo">TODO</string>
     <string name="name">FirstName</string>
     <string name="nameA">AdressName</string>
+    <string name="nameitem2">nameitem2</string>
 
 
 </resources>

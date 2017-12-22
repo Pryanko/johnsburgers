@@ -1,5 +1,6 @@
 package com.examle.libgo.johnsburgers.di.modules;
 
+import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.examle.libgo.johnsburgers.tools.DataBaseSource;
 import javax.inject.Singleton;
@@ -21,5 +22,11 @@ public class HeadModule {
     @Singleton
     DataBaseSource dataBaseSource(){
         return new DataBaseSource();
+    }
+
+    @Provides
+    @Singleton
+    HeadPresenters headPresenters(BottomBarBadgeHelper bottomBarBadgeHelper) {
+        return new HeadPresenters(bottomBarBadgeHelper);
     }
 }

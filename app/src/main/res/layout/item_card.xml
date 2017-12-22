@@ -70,17 +70,55 @@
 
         </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
 
+            <TextView
+                android:id="@+id/textViewNameItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/colorWhite"
+                android:layout_toRightOf="@+id/item_image_drinks"
+                android:layout_toEndOf="@+id/item_image_drinks"
+                android:text="@string/nameitem2" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/item_image_drinks"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="2dp"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                app:actualImageScaleType="focusCrop"
+                app:roundTopLeft="true"
+                app:roundTopRight="true"
+                app:roundedCornerRadius="@dimen/cardview_default_radius"/>
+
+
+            <View
+                android:layout_width="96dp"
+                android:layout_height="1dp"
+                android:layout_below="@+id/item_image_drinks"
+                android:background="@color/colorWhite"
+                android:layout_marginTop="2dp">
+            </View>
+
+            <TextView
+                android:layout_below="@+id/textViewNameItem2"
+                android:layout_toRightOf="@+id/item_image_drinks"
+                android:layout_toEndOf="@+id/item_image_drinks"
                 android:id="@+id/textViewDescribeItem"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:layout_marginLeft="8dp"
@@ -88,10 +126,11 @@
                 android:layout_marginTop="4dp"
                 android:textColor="@color/colorWhite"
                 android:text="@string/DescribeItem"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                 />
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </com.examle.libgo.johnsburgers.layout.ExpandCardLayout>

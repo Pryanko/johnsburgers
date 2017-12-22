@@ -41,6 +41,9 @@ public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHo
         if(menuMeal.getDescribeBoolean()){
             holder.view.setVisibility(View.VISIBLE);
             holder.textViewDescribe.setVisibility(View.VISIBLE);
+        }else{
+            holder.view.setVisibility(View.GONE);
+            holder.textViewDescribe.setVisibility(View.GONE);
         }
         holder.mealsItemImage.setImageURI(menuMeal.getScrImage());
         holder.textNameMeals.setText(menuMeal.getNameMeals());
@@ -62,18 +65,17 @@ public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHo
     }
 
      class ViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.textViewAllMeals)
         TextView textNameMeals;
         @BindView(R.id.textDescribeAllMeals)
         TextView textViewDescribe;
-
         @BindView(R.id.meals_image)
         SimpleDraweeView mealsItemImage;
         @BindView(R.id.viewMeals)
         View view;
         @BindView(R.id.recyclerViewMeals)
         RecyclerView recyclerView;
-
 
          ViewHolder(View itemView) {
             super(itemView);

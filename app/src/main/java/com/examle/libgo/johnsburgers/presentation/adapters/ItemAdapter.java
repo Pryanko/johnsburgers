@@ -13,6 +13,7 @@ import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
 import com.examle.libgo.johnsburgers.layout.ExpandCardLayout;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.examle.libgo.johnsburgers.tools.DataBaseSource;
+import com.facebook.drawee.view.SimpleDraweeView;
 import java.util.HashSet;
 import java.util.List;
 import butterknife.BindView;
@@ -47,8 +48,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.updateItem(position);
         MenuMeal menuMeal = mealList.get(position);
         holder.textViewNameItem.setText(menuMeal.getNameMealsMenu());
+        holder.textViewNameItem2.setText(menuMeal.getNameMealsMenu());
         holder.textViewDescribeItem.setText(menuMeal.getDescribeTextMenu());
         holder.textViewCost.setText(EURO + String.valueOf(menuMeal.getCost()));
+        holder.imageDrinks.setImageURI(menuMeal.getScr_image());
         holder.buttonItem.setOnClickListener(view -> {
 
             if(dataBaseSource.getValidItem(menuMeal.getNameMealsMenu())){
@@ -88,7 +91,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     }
 
      class ViewHolder extends RecyclerView.ViewHolder {
-
+        @BindView(R.id.textViewNameItem2)
+        TextView textViewNameItem2;
         @BindView(R.id.textViewNameItem)
         TextView textViewNameItem;
         @BindView(R.id.textViewDescribeItem)
@@ -99,6 +103,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         Button buttonItem;
         @BindView(R.id.expand_layout)
         ExpandCardLayout expandCardLayout;
+        @BindView(R.id.item_image_drinks)
+        SimpleDraweeView imageDrinks;
 
          private ViewHolder(View itemView) {
             super(itemView);

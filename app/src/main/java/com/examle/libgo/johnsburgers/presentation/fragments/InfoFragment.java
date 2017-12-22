@@ -15,17 +15,16 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.parcelers.ServerResponse;
-import com.examle.libgo.johnsburgers.network.ApiService;
+import com.examle.libgo.johnsburgers.data.repository.AppRepository;
 import com.examle.libgo.johnsburgers.presentation.adapters.InfoAdapter;
 import com.examle.libgo.johnsburgers.presentation.adapters.LocationAdapter;
 import org.parceler.Parcels;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_INFO;
 import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.LOG_TAG;
 
@@ -57,6 +56,7 @@ public class InfoFragment extends MvpAppCompatFragment {
     ProgressBar progressBar;
     @BindView(R.id.info_foreground_view)
     RelativeLayout foregroundInfoView;
+    private AppRepository appRepository = App.getAppComponent().getAppRepository();
 
 
     @Override
@@ -69,11 +69,13 @@ public class InfoFragment extends MvpAppCompatFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         ButterKnife.bind(this, view);
-        if(savedInstanceState == null) {
+
+
+        if (savedInstanceState == null) {
             progressBar.setVisibility(View.VISIBLE);
             downloadData();
         }
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             progressBar.setVisibility(View.VISIBLE);
             response = Parcels.unwrap(savedInstanceState.getParcelable(KEY_MODEL_INFO));
             startAdapter("s");
@@ -91,11 +93,12 @@ public class InfoFragment extends MvpAppCompatFragment {
 
         foregroundInfoView.setVisibility(View.INVISIBLE);
         CompositeDisposable compositeDisposable = new CompositeDisposable();
-        ApiService apiService = ApiService.retrofit.create(ApiService.class);
-        compositeDisposable.add(apiService.getApi()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+        compositeDisposable.add(appRepository.getInfoApi()
                 .subscribe(this::startViewNews, this::handleError));
+
+        /**
+         * Пока не разобрался с синглтоном репозитория.
+         */
     }
 
     private void handleError(Throwable throwable) {
@@ -104,19 +107,22 @@ public class InfoFragment extends MvpAppCompatFragment {
 
     private void startViewNews(ServerResponse serverResponse) {
         response = serverResponse;
-        Log.d(LOG_TAG, response.toString() );
+        Log.d(LOG_TAG, response.toString());
         Log.d(LOG_TAG, response.getTimings().toString());
         startAdapter("startViewNews");
     }
 
-    private void startAdapter(String s){
+    private void startAdapter(String s) {
         progressBar.setVisibility(View.INVISIBLE);
         foregroundInfoView.setVisibility(View.VISIBLE);
         view.setVisibility(View.VISIBLE);
+
         linearLayoutManager = new LinearLayoutManager(getActivity());
         layoutManagerLocation = new LinearLayoutManager(getActivity());
+
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setNestedScrollingEnabled(false);
+
         recyclerViewLocation.setLayoutManager(layoutManagerLocation);
         recyclerViewLocation.setNestedScrollingEnabled(false);
         recyclerViewLocation.setFocusable(false);
@@ -126,6 +132,7 @@ public class InfoFragment extends MvpAppCompatFragment {
 
         recyclerView.setAdapter(infoAdapter);
         recyclerViewLocation.setAdapter(locationAdapter);
+
         Log.d(LOG_TAG + s, response.getNews().toString());
         addressText.setText(response.getLocation().getAdressName());
         locationText.setText(response.getLocation().getInfoLocation());
@@ -141,8 +148,8 @@ public class InfoFragment extends MvpAppCompatFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_MODEL_INFO, Parcels.wrap(response));
-        }
     }
+}
 
 
 

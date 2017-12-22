@@ -12,8 +12,9 @@ import com.examle.libgo.johnsburgers.presentation.anim.ViewAnimationFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.BasketFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.InfoFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
-import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
+import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
 import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.BottomBarTab;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -32,42 +33,44 @@ public class HeadActivity extends MvpAppCompatActivity {
     private InfoFragment infoFragment;
     private MenuFragment menuFragment;
     private BasketFragment basketFragment;
-    private BottomBarBadgeHelper bottomBarBadgeHelper = App.getAppComponent().getBottomBarBadgeHelper();
+    private HeadPresenters headPresenters;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
+
         ButterKnife.bind(this);
+
+        headPresenters = App.getAppComponent().getHeadPresenters();
+
         infoFragment = new InfoFragment();
         menuFragment = new MenuFragment();
         basketFragment = new BasketFragment();
-        setSwipeOptions();
-        tabSelectListener();
-        viewPageListener();
-        setBottomBarBadge();
+
+        BottomBarTab bottomBarTab = bottomBar.getTabWithId(R.id.tab_basket);
+        headPresenters.setHeadView(this, bottomBarTab);
+        headPresenters.createView();
     }
 
-      private void tabSelectListener(){
+      public void tabSelectListener(){
         bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId){
                 case R.id.tab_burger_info:
                     viewPager.setCurrentItem(0);
-                    textToolbar.setText(getString(R.string.app_name));
                     break;
                 case R.id.tab_menu:
                     viewPager.setCurrentItem(1);
-                    textToolbar.setText(getString(R.string.menu_tab));
                     break;
                 case R.id.tab_basket:
                     viewPager.setCurrentItem(2);
-                    textToolbar.setText(getString(R.string.basket_tab));
                     break;
             }
         });
     }
 
-    private void  viewPageListener(){
+    public void  viewPageListener(){
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -77,6 +80,7 @@ public class HeadActivity extends MvpAppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                  bottomBar.selectTabAtPosition(position, true);
+                 headPresenters.setChangePosition(position);
             }
 
             @Override
@@ -86,15 +90,14 @@ public class HeadActivity extends MvpAppCompatActivity {
         });
     }
 
-    private void setSwipeOptions(){
+    public void setSwipeOptions(){
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), infoFragment, menuFragment, basketFragment);
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageTransformer(true, new ViewAnimationFragment());
     }
 
-    private void setBottomBarBadge(){
-        bottomBarBadgeHelper.setBottomBar(bottomBar);
-        bottomBarBadgeHelper.changeBottomBadge();
+    public void changeTextToolbar(String text){
+        textToolbar.setText(text);
     }
 }
 

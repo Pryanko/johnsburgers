@@ -1,8 +1,6 @@
 package com.examle.libgo.johnsburgers.tools;
 
 import android.graphics.Color;
-import com.examle.libgo.johnsburgers.R;
-import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.COLOR_STRING;
 
@@ -18,9 +16,9 @@ public class BottomBarBadgeHelper {
         this.dataBaseSource = dataBaseSource;
     }
 
-    public void setBottomBar(BottomBar bottomBar){
-        basket = bottomBar.getTabWithId(R.id.tab_basket);
-        basket.setBadgeBackgroundColor(Color.parseColor(COLOR_STRING));
+    public void setBottomBar(BottomBarTab basket){
+        this.basket = basket;
+        this.basket.setBadgeBackgroundColor(Color.parseColor(COLOR_STRING));
     }
 
     public void changeBottomBadge(){
