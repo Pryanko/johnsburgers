@@ -29,6 +29,10 @@ public class ItemShop extends RealmObject {
     @Expose
     private Integer cost;
 
+    @SerializedName("all_cost")
+    @Expose
+    private Integer all_cost;
+
 
     public Integer getId() {
         return id;
@@ -60,5 +64,13 @@ public class ItemShop extends RealmObject {
 
     public void setCost(Integer cost) {
         this.cost = cost;
+    }
+
+    public Integer getAll_cost() {
+        return all_cost;
+    }
+
+    public void setAll_cost(Integer all_cost) {
+        this.all_cost = all_cost;
     }
 }

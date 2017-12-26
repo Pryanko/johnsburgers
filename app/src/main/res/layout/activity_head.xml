@@ -7,7 +7,6 @@
     tools:context="com.examle.libgo.johnsburgers.presentation.activities.HeadActivity"
     android:theme="@style/AppTheme">
 
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/app_toolbar"
         android:layout_width="match_parent"
@@ -43,8 +42,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true">
 
-
-
         <android.support.v4.view.ViewPager
             android:id="@+id/swipePager"
             android:layout_width="match_parent"
@@ -56,6 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:visibility="gone"
         app:bb_tabXmlResource="@xml/bottom_tabs" />
 
 

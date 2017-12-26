@@ -3,9 +3,13 @@ package com.examle.libgo.johnsburgers.presentation.anim;
 import android.view.View;
 
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
 public class ViewAnimationFragment implements android.support.v4.view.ViewPager.PageTransformer {
+    /**
+     * Анимашка - стырил с нета - тут все понятно
+     */
+
     private static final float MIN_SCALE = 0.75f;
 
     public void transformPage(View view, float position) {

@@ -59,6 +59,7 @@ public class InfoFragment extends MvpAppCompatFragment {
     private AppRepository appRepository = App.getAppComponent().getAppRepository();
 
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,13 +95,13 @@ public class InfoFragment extends MvpAppCompatFragment {
         foregroundInfoView.setVisibility(View.INVISIBLE);
         CompositeDisposable compositeDisposable = new CompositeDisposable();
         compositeDisposable.add(appRepository.getInfoApi()
-                .subscribe(this::startViewNews, this::handleError));
+                .subscribe(this::startViewNews, this::handleError)
+        );
 
-        /**
-         * Пока не разобрался с синглтоном репозитория.
+        /*
+          Пока не разобрался с синглтоном репозитория.
          */
     }
-
     private void handleError(Throwable throwable) {
         //Обработкой займемся поздней)
     }

@@ -3,7 +3,7 @@ package com.examle.libgo.johnsburgers.presentation.presenters;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.activities.HeadActivity;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
-import com.roughike.bottombar.BottomBarTab;
+import com.roughike.bottombar.BottomBar;
 
 /**
  * @author libgo (04.12.2017)
@@ -19,21 +19,19 @@ public class HeadPresenters {
 
     private HeadActivity headView;
     private BottomBarBadgeHelper bottomBarBadgeHelper;
-    private BottomBarTab bottomBarTab;
+    private BottomBar bottomBarTab;
 
     public HeadPresenters(BottomBarBadgeHelper badgeHelper){
         this.bottomBarBadgeHelper = badgeHelper;
     }
 
-    public void setHeadView(HeadActivity activity, BottomBarTab barTab){
+    public void setHeadView(HeadActivity activity, BottomBar barTab){
         this.headView = activity;
         this.bottomBarTab = barTab;
     }
 
     public void createView(){
-        headView.setSwipeOptions();
-        headView.tabSelectListener();
-        headView.viewPageListener();
+        headView.onPlayShow();
         setBottomBarBadge();
     }
 
@@ -46,7 +44,7 @@ public class HeadPresenters {
 
         switch (position){
             case 0:
-                headView.changeTextToolbar(headView.getString(R.string.info_tab));
+                headView.changeTextToolbar(headView.getString(R.string.app_name));
                 break;
             case 1:
                 headView.changeTextToolbar(headView.getString(R.string.menu_tab));

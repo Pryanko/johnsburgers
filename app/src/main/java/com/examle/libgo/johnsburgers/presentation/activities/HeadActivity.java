@@ -1,24 +1,27 @@
 package com.examle.libgo.johnsburgers.presentation.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
+import com.examle.libgo.johnsburgers.presentation.activities.contracts.ViewBase;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeAdapter;
 import com.examle.libgo.johnsburgers.presentation.anim.ViewAnimationFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.BasketFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.InfoFragment;
 import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
+import com.examle.libgo.johnsburgers.presentation.activities.contracts.BackPressedFragments;
 import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
 import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.BottomBarTab;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HeadActivity extends MvpAppCompatActivity {
+public class HeadActivity extends MvpAppCompatActivity implements ViewBase {
 
     //Bind View
     @BindView(R.id.app_toolbar)
@@ -33,28 +36,42 @@ public class HeadActivity extends MvpAppCompatActivity {
     private InfoFragment infoFragment;
     private MenuFragment menuFragment;
     private BasketFragment basketFragment;
-    private HeadPresenters headPresenters;
+    private HeadPresenters headPresenters = App.getAppComponent().getHeadPresenters();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_head);
-
         ButterKnife.bind(this);
 
-        headPresenters = App.getAppComponent().getHeadPresenters();
-
-        infoFragment = new InfoFragment();
-        menuFragment = new MenuFragment();
-        basketFragment = new BasketFragment();
-
-        BottomBarTab bottomBarTab = bottomBar.getTabWithId(R.id.tab_basket);
-        headPresenters.setHeadView(this, bottomBarTab);
+        headPresenters.setHeadView(this, bottomBar);
         headPresenters.createView();
     }
 
-      public void tabSelectListener(){
+
+    @Override
+    public void onPlayShow() {
+        initFragments();
+        tabSelectListener();
+        viewPageListener();
+        setSwipeOptions();
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    private void initFragments(){
+        infoFragment = new InfoFragment();
+        menuFragment = new MenuFragment();
+        basketFragment = new BasketFragment();
+    }
+
+
+    private void tabSelectListener(){
         bottomBar.setOnTabSelectListener(tabId -> {
             switch (tabId){
                 case R.id.tab_burger_info:
@@ -70,7 +87,7 @@ public class HeadActivity extends MvpAppCompatActivity {
         });
     }
 
-    public void  viewPageListener(){
+    private void  viewPageListener(){
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -90,7 +107,7 @@ public class HeadActivity extends MvpAppCompatActivity {
         });
     }
 
-    public void setSwipeOptions(){
+    private void setSwipeOptions(){
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), infoFragment, menuFragment, basketFragment);
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageTransformer(true, new ViewAnimationFragment());
@@ -99,7 +116,29 @@ public class HeadActivity extends MvpAppCompatActivity {
     public void changeTextToolbar(String text){
         textToolbar.setText(text);
     }
+
+    @Override
+    public void onBackPressed() {
+
+        BackPressedFragments backPressedFragments = null;
+        for (Fragment fragment: getSupportFragmentManager().getFragments()) {
+            if (fragment instanceof  BackPressedFragments) {
+                backPressedFragments = (BackPressedFragments) fragment;
+                break;
+            }
+        }
+        if (backPressedFragments!=null){
+            backPressedFragments.onBackPressed();
+        }
+
+        super.onBackPressed();
+
+    }
+
 }
+
+
+
 
 
 

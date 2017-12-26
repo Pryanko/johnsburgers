@@ -10,6 +10,11 @@ import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.REALM_PRIMA
  */
 public class DataBaseSource {
 
+    /**
+     * Данный класс - это класс помошник для управления БД (Realm).
+     * Благодаря этому классу я посторался изолировать БД.
+     */
+
     private RealmConfiguration realmConfiguration;
 
     public DataBaseSource(){
@@ -67,6 +72,7 @@ public class DataBaseSource {
         ItemShop itemShop = realm.createObject(ItemShop.class, s);
         itemShop.setCounter(1);
         itemShop.setCost(i);
+        itemShop.setAll_cost(itemShop.getCounter() * itemShop.getCost());
         realm.commitTransaction();
         realm.close();
     }
@@ -77,7 +83,7 @@ public class DataBaseSource {
         realm.beginTransaction();
         assert itemShop != null;
         itemShop.setCounter(itemShop.getCounter() + 1);
-        itemShop.setCost(itemShop.getCost() * itemShop.getCounter());
+        itemShop.setAll_cost(itemShop.getCounter() * itemShop.getCost());
         realm.commitTransaction();
         realm.close();
     }

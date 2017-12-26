@@ -29,6 +29,18 @@
     <string name="name">FirstName</string>
     <string name="nameA">AdressName</string>
     <string name="nameitem2">nameitem2</string>
+    <string name="first_name">First name</string>
+    <string name="street">Street</string>
+    <string name="home">Home</string>
+    <string name="kv">Kv.</string>
+    <string name="name_telephone">Telephone</string>
 
+
+    <string-array name="CityList">
+        <item>Moscow</item>
+        <item>Ivanovo</item>
+        <item>Vladimir</item>
+        <item>Riga</item>
+    </string-array>
 
 </resources>

@@ -45,7 +45,7 @@ public class ItemShopAdapter extends RecyclerView.Adapter<ItemShopAdapter.ViewHo
         ItemShop itemShop = itemShopList.get(position);
         holder.nameItemBasket.setText(itemShop.getItem_name());
         holder.counterBasket.setText(X + String.valueOf(itemShop.getCounter()));
-        holder.costBasket.setText(EURO + String.valueOf(itemShop.getCost()));
+        holder.costBasket.setText(EURO + String.valueOf(itemShop.getAll_cost()));
 
     }
 

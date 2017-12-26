@@ -40,6 +40,7 @@
 
     <Button
         android:layout_below="@+id/recyclerViewBasket"
+        android:visibility="gone"
         android:layout_marginTop="4dp"
         android:layout_marginRight="2dp"
         android:layout_marginEnd="2dp"
@@ -52,6 +53,17 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button_new_order"
         android:text="@string/buttonBasket" />
+
+    <TextView
+        android:id="@+id/all_basket_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewNullBasket"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/home"
+        />
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/item_basket_image"
