@@ -2,6 +2,7 @@ package com.examle.libgo.johnsburgers.presentation.presenters;
 
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.activities.HeadActivity;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.PresenterBase;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.roughike.bottombar.BottomBar;
 
@@ -53,5 +54,13 @@ public class HeadPresenters {
                 headView.changeTextToolbar(headView.getString(R.string.basket_tab));
                 break;
         }
+    }
+
+    public void errorView() {
+
+    }
+
+    public void destroyView() {
+        headView = null;
     }
 }

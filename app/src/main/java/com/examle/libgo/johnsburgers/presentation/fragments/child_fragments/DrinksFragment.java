@@ -43,13 +43,8 @@ public class DrinksFragment extends MvpAppCompatFragment {
         View view = inflater.inflate(R.layout.fragment_drinks, container, false);
         ButterKnife.bind(this, view);
 
-        if(savedInstanceState == null){
             downloadData();
-        }
-        if(savedInstanceState != null){
-            drinkResponse = Parcels.unwrap(savedInstanceState.getParcelable(KEY_MODEL_DRINKS));
-            startViewDrinks(drinkResponse);
-        }
+
         return view;
     }
 

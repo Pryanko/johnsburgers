@@ -17,7 +17,6 @@ import com.examle.libgo.johnsburgers.presentation.fragments.MenuFragment;
 import com.examle.libgo.johnsburgers.presentation.activities.contracts.BackPressedFragments;
 import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
 import com.roughike.bottombar.BottomBar;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -55,12 +54,7 @@ public class HeadActivity extends MvpAppCompatActivity implements ViewBase {
         initFragments();
         tabSelectListener();
         viewPageListener();
-        setSwipeOptions();
-
-    }
-
-    @Override
-    public void onError() {
+        swipeOptions();
 
     }
 
@@ -107,7 +101,7 @@ public class HeadActivity extends MvpAppCompatActivity implements ViewBase {
         });
     }
 
-    private void setSwipeOptions(){
+    private void swipeOptions(){
         SwipeAdapter swipeAdapter = new SwipeAdapter(getSupportFragmentManager(), infoFragment, menuFragment, basketFragment);
         viewPager.setAdapter(swipeAdapter);
         viewPager.setPageTransformer(true, new ViewAnimationFragment());
@@ -119,7 +113,6 @@ public class HeadActivity extends MvpAppCompatActivity implements ViewBase {
 
     @Override
     public void onBackPressed() {
-
         BackPressedFragments backPressedFragments = null;
         for (Fragment fragment: getSupportFragmentManager().getFragments()) {
             if (fragment instanceof  BackPressedFragments) {
@@ -130,11 +123,18 @@ public class HeadActivity extends MvpAppCompatActivity implements ViewBase {
         if (backPressedFragments!=null){
             backPressedFragments.onBackPressed();
         }
-
         super.onBackPressed();
-
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        headPresenters.destroyView();
+    }
+    @Override
+    public void onError() {
+
+    }
 }
 
 

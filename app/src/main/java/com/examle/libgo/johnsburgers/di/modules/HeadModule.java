@@ -1,6 +1,8 @@
 package com.examle.libgo.johnsburgers.di.modules;
 
 import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.DrinksPresenter;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.InfoPresenter;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.examle.libgo.johnsburgers.tools.DataBaseSource;
 import javax.inject.Singleton;
@@ -29,4 +31,18 @@ public class HeadModule {
     HeadPresenters headPresenters(BottomBarBadgeHelper bottomBarBadgeHelper) {
         return new HeadPresenters(bottomBarBadgeHelper);
     }
+    @Provides
+    @Singleton
+    InfoPresenter infoPresenter() {
+        return new InfoPresenter();
+    }
+
+    @Provides
+    @Singleton
+    DrinksPresenter drinksPresenter(){
+        return new DrinksPresenter();
+    }
+
+
+
 }

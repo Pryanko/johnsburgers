@@ -1,4 +1,4 @@
-package com.examle.libgo.johnsburgers.presentation.fragments.child_fragments;
+package com.examle.libgo.johnsburgers.presentation.fragments;
 
 
 import android.os.Bundle;

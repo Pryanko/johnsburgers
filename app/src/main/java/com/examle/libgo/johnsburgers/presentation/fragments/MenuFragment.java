@@ -11,15 +11,15 @@ import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.presentation.adapters.SwipeMenuAdapter;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.ViewFragmentsBase;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 
 /**
  * @author libgo (03.12.2017)
  */
 
-public class MenuFragment extends MvpAppCompatFragment{
+public class MenuFragment extends MvpAppCompatFragment implements ViewFragmentsBase{
 
     //Bind
     @BindView(R.id.tabLayout)
@@ -38,14 +38,26 @@ public class MenuFragment extends MvpAppCompatFragment{
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         ButterKnife.bind(this, view);
 
+        //run
+        onPlayShow();
+        return view;
+    }
+
+
+    @Override
+    public void onPlayShow() {
+
         SwipeMenuAdapter swipeMenuAdapter = new SwipeMenuAdapter(getChildFragmentManager());
         swipeMenuAdapter.addTabTitle(getResources().getString(R.string.text_menu_MEALS));
         swipeMenuAdapter.addTabTitle(getResources().getString(R.string.text_menu_DRINKS));
         viewPager.setAdapter(swipeMenuAdapter);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(viewPager);
-        return view;
+
     }
 
+    @Override
+    public void onError() {
 
+    }
 }

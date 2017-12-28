@@ -9,24 +9,26 @@ import android.widget.TextView;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.Timing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by libgo on 08.12.2017.
+ * @author libgo (08.12.2017)
  */
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
 
-    private List<Timing> times;
+    private List<Timing> times = new ArrayList<>();
 
-
-    public LocationAdapter(List<Timing> timingList){
-        this.times = timingList;
+    public void setTimes(List<Timing> times) {
+        if(this.times.size() == 0) {
+            this.times = times;
+        }
+        notifyDataSetChanged();
     }
-
 
     @Override
     public LocationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,7 +49,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         if(times != null){
             return times.size();
         }
-
         return 0;
     }
 
@@ -57,8 +58,6 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
          TextView textViewDay;
         @BindView(R.id.textViewClock)
         TextView textViewClock;
-
-
 
          ViewHolder(View itemView) {
              super(itemView);

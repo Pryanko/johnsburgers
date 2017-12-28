@@ -8,27 +8,30 @@ import android.widget.TextView;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.pojos.News;
 import com.facebook.drawee.view.SimpleDraweeView;
+import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 /**
- * Created by libgo on 03.12.2017.
+ * @author libgo (03.12.2017)
  */
 
 public class InfoAdapter extends RecyclerView.Adapter<InfoAdapter.ViewHolder> {
 
-    private List<News> dataList;
-
-    public InfoAdapter (List<News> newsList){
-        this.dataList = newsList;
-    }
+    private List<News> dataList = new ArrayList<>();
 
     @Override
     public InfoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.news_card, parent, false));
+    }
+
+    public void setDataList(List<News> list){
+        if(this.dataList.size()==0){
+            this.dataList = list;
+        }
+        notifyDataSetChanged();
     }
 
     @Override

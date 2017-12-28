@@ -10,12 +10,12 @@ import java.util.List;
 
 public class MapCostBasket {
 
-    public static String mapCost (List<ItemShop> list){
+    public static Integer mapCost (List<ItemShop> list){
          int i = 0;
          for (ItemShop itemShop : list){
              i = i + itemShop.getAll_cost();
          }
-        return String.valueOf(i);
+        return i;
     }
 
 }

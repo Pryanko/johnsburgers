@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,27 +16,18 @@ import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
-import com.examle.libgo.johnsburgers.data.parcelers.ServerResponse;
-import com.examle.libgo.johnsburgers.data.repository.AppRepository;
 import com.examle.libgo.johnsburgers.presentation.adapters.InfoAdapter;
 import com.examle.libgo.johnsburgers.presentation.adapters.LocationAdapter;
-import org.parceler.Parcels;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.InfoPresenter;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.ViewFragmentsBase;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.disposables.CompositeDisposable;
-import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_INFO;
-import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.LOG_TAG;
 
 /**
  * @author libgo (03.12.2017)
  */
 
-public class InfoFragment extends MvpAppCompatFragment {
-
-    private ServerResponse response;
-
-    LinearLayoutManager linearLayoutManager;
-    LinearLayoutManager layoutManagerLocation;
+public class InfoFragment extends MvpAppCompatFragment implements ViewFragmentsBase {
 
     //Bind View
     @BindView(R.id.recyclerView)
@@ -56,99 +46,72 @@ public class InfoFragment extends MvpAppCompatFragment {
     ProgressBar progressBar;
     @BindView(R.id.info_foreground_view)
     RelativeLayout foregroundInfoView;
-    private AppRepository appRepository = App.getAppComponent().getAppRepository();
 
+    private InfoPresenter infoPresenter = App.getAppComponent().getInfoPresenter();
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+    InfoAdapter infoAdapter = new InfoAdapter();
+    LocationAdapter locationAdapter = new LocationAdapter();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_info, container, false);
         ButterKnife.bind(this, view);
-
-
-        if (savedInstanceState == null) {
-            progressBar.setVisibility(View.VISIBLE);
-            downloadData();
-        }
-        if (savedInstanceState != null) {
-            progressBar.setVisibility(View.VISIBLE);
-            response = Parcels.unwrap(savedInstanceState.getParcelable(KEY_MODEL_INFO));
-            startAdapter("s");
-        }
-
+        //
+        foregroundInfoView.setVisibility(View.INVISIBLE);
+        //run
+        infoPresenter.setView(this);
+        infoPresenter.createView();
         return view;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
+    public void onPlayShow() {
 
-    private void downloadData() {
-
-        foregroundInfoView.setVisibility(View.INVISIBLE);
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(appRepository.getInfoApi()
-                .subscribe(this::startViewNews, this::handleError)
-        );
-
-        /*
-          Пока не разобрался с синглтоном репозитория.
-         */
-    }
-    private void handleError(Throwable throwable) {
-        //Обработкой займемся поздней)
-    }
-
-    private void startViewNews(ServerResponse serverResponse) {
-        response = serverResponse;
-        Log.d(LOG_TAG, response.toString());
-        Log.d(LOG_TAG, response.getTimings().toString());
-        startAdapter("startViewNews");
-    }
-
-    private void startAdapter(String s) {
-        progressBar.setVisibility(View.INVISIBLE);
-        foregroundInfoView.setVisibility(View.VISIBLE);
+        //visibility
         view.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.GONE);
+        foregroundInfoView.setVisibility(View.VISIBLE);
 
-        linearLayoutManager = new LinearLayoutManager(getActivity());
-        layoutManagerLocation = new LinearLayoutManager(getActivity());
+        //filling adapters
+        infoAdapter.setDataList(infoPresenter.getServerResponse().getNews());
+        locationAdapter.setTimes(infoPresenter.getServerResponse().getTimings());
 
-        recyclerView.setLayoutManager(linearLayoutManager);
+        //recycler options
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setNestedScrollingEnabled(false);
-
-        recyclerViewLocation.setLayoutManager(layoutManagerLocation);
+        recyclerView.setAdapter(infoAdapter);
+        recyclerViewLocation.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerViewLocation.setNestedScrollingEnabled(false);
         recyclerViewLocation.setFocusable(false);
-
-        InfoAdapter infoAdapter = new InfoAdapter(response.getNews());
-        LocationAdapter locationAdapter = new LocationAdapter(response.getTimings());
-
-        recyclerView.setAdapter(infoAdapter);
         recyclerViewLocation.setAdapter(locationAdapter);
 
-        Log.d(LOG_TAG + s, response.getNews().toString());
-        addressText.setText(response.getLocation().getAdressName());
-        locationText.setText(response.getLocation().getInfoLocation());
+        //information fill
+        addressText.setText(infoPresenter.getServerResponse().getLocation().getAdressName());
+        locationText.setText(infoPresenter.getServerResponse().getLocation().getInfoLocation());
 
         linkText.setOnClickListener(view -> {
-            Uri urlLink = Uri.parse(response.getLink());
+            Uri urlLink = Uri.parse(infoPresenter.getServerResponse().getLink());
             Intent openLink = new Intent(Intent.ACTION_VIEW, urlLink);
             startActivity(openLink);
         });
+
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(KEY_MODEL_INFO, Parcels.wrap(response));
+    public void onError() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        infoPresenter.destroyView();
     }
 }
 
