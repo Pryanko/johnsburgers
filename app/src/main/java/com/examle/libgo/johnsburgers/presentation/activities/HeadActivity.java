@@ -35,7 +35,7 @@ public class HeadActivity extends MvpAppCompatActivity implements ViewBase {
     private InfoFragment infoFragment;
     private MenuFragment menuFragment;
     private BasketFragment basketFragment;
-    private HeadPresenters headPresenters = App.getAppComponent().getHeadPresenters();
+    private HeadPresenters headPresenters = App.getAppComponent().getHeadPresenter();
 
 
     @Override

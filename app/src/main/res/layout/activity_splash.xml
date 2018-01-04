@@ -7,4 +7,12 @@
     android:layout_height="match_parent"
     tools:context="com.examle.libgo.johnsburgers.presentation.activities.SplashActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:alpha="0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        app:srcCompat="@drawable/logo_burger" />
 </RelativeLayout>

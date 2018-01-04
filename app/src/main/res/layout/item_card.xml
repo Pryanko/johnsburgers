@@ -92,6 +92,7 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/item_image_drinks"
+
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_marginTop="2dp"

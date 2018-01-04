@@ -1,6 +1,7 @@
 package com.examle.libgo.johnsburgers.presentation.adapters;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,10 @@ import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
 import com.examle.libgo.johnsburgers.layout.ExpandCardLayout;
 import com.examle.libgo.johnsburgers.tools.BottomBarBadgeHelper;
 import com.examle.libgo.johnsburgers.tools.DataBaseSource;
+import com.examle.libgo.johnsburgers.tools.SoftImageViewer;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import butterknife.BindView;
@@ -24,20 +28,23 @@ import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.EURO;
  */
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
-    private List<MenuMeal> mealList;
-    private HashSet<Integer> expandedPositionSet;
+    private List<MenuMeal> mealList = new ArrayList<>();
+    private HashSet<Integer> expandedPositionSet = new HashSet<>();
     private BottomBarBadgeHelper bottomBarBadgeHelper = App.getAppComponent().getBottomBarBadgeHelper();
     private DataBaseSource dataBaseSource = App.getAppComponent().getDataBaseSource();
+    private Context context;
 
 
-    public ItemAdapter(List<MenuMeal> list){
-        expandedPositionSet = new HashSet<>();
-        this.mealList = list;
-
-    }
+   public void addList(List<MenuMeal> list){
+       if(mealList.size() == 0){
+           this.mealList = list;
+           notifyDataSetChanged();
+       }
+   }
 
     @Override
     public ItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         return new ItemAdapter.ViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_card, parent, false));
     }
@@ -52,6 +59,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.textViewDescribeItem.setText(menuMeal.getDescribeTextMenu());
         holder.textViewCost.setText(EURO + String.valueOf(menuMeal.getCost()));
         holder.imageDrinks.setImageURI(menuMeal.getScr_image());
+        holder.imageDrinks.setOnClickListener(view -> SoftImageViewer.setImageView(context, menuMeal.getScr_image(), position));
         holder.buttonItem.setOnClickListener(view -> {
 
             if(dataBaseSource.getValidItem(menuMeal.getNameMealsMenu())){
@@ -108,6 +116,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
          private ViewHolder(View itemView) {
             super(itemView);
+
              ButterKnife.bind(this, itemView);
         }
 

@@ -1,5 +1,8 @@
 package com.examle.libgo.johnsburgers.di.modules;
 
+import android.content.Context;
+
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.presentation.presenters.HeadPresenters;
 import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.DrinksPresenter;
 import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.InfoPresenter;
@@ -31,6 +34,7 @@ public class HeadModule {
     HeadPresenters headPresenters(BottomBarBadgeHelper bottomBarBadgeHelper) {
         return new HeadPresenters(bottomBarBadgeHelper);
     }
+
     @Provides
     @Singleton
     InfoPresenter infoPresenter() {

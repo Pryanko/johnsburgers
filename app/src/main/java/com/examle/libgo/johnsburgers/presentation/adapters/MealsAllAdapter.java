@@ -22,10 +22,12 @@ public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHo
 
     private List<MenuMealsAll> mealList;
     private Context context;
+    private ItemAdapter itemAdapter = new ItemAdapter();
 
     public MealsAllAdapter(List<MenuMealsAll> list, Context mContext){
         this.mealList = list;
         this.context = mContext;
+
 
     }
 
@@ -49,12 +51,14 @@ public class MealsAllAdapter extends RecyclerView.Adapter<MealsAllAdapter.ViewHo
         holder.textNameMeals.setText(menuMeal.getNameMeals());
         holder.textViewDescribe.setText(menuMeal.getDescribeText());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-        ItemAdapter itemAdapter = new ItemAdapter(menuMeal.getMenuMeals());
         holder.recyclerView.setLayoutManager(linearLayoutManager);
         holder.recyclerView.setFocusable(false);
+        itemAdapter.addList(menuMeal.getMenuMeals());
         holder.recyclerView.setAdapter(itemAdapter);
 
     }
+
+
 
     @Override
     public int getItemCount() {

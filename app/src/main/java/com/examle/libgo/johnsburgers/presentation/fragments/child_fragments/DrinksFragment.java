@@ -9,19 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.parcelers.DrinkResponse;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
-import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.ItemAdapter;
-import org.parceler.Parcels;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.DrinksPresenter;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_DRINKS;
 /**
  * @author libgo (08.12.2017)
  */
@@ -29,12 +25,14 @@ import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_D
 public class DrinksFragment extends MvpAppCompatFragment {
     @BindView(R.id.recyclerViewItemDrinks)
     RecyclerView recyclerView;
-    private DrinkResponse drinkResponse;
+
+    private ItemAdapter itemAdapter;
+    private DrinksPresenter drinksPresenter = App.getAppComponent().getDrinkPresenter();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        itemAdapter = new ItemAdapter();
     }
 
     @Nullable
@@ -42,39 +40,17 @@ public class DrinksFragment extends MvpAppCompatFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_drinks, container, false);
         ButterKnife.bind(this, view);
-
-            downloadData();
-
+        drinksPresenter.setView(this);
+        drinksPresenter.createView();
         return view;
     }
 
-    private void downloadData() {
-        CompositeDisposable compositeDisposable = new CompositeDisposable();
-        ApiService apiService = ApiService.retrofit.create(ApiService.class);
-        compositeDisposable.add(apiService.getMenuDrinks()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::startViewDrinks, this::handleError));
-    }
-
-    private void handleError(Throwable throwable) {
-        //Обработкой займемся поздней)
-    }
-
-    private void startViewDrinks(DrinkResponse drinkResponse) {
-        this.drinkResponse = drinkResponse;
-        List<MenuMeal> list = drinkResponse.getMenuDrinks();
-        ItemAdapter itemAdapter = new ItemAdapter(list);
+    public void startViewShow() {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
+        itemAdapter.addList(drinksPresenter.getListMenu());
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setNestedScrollingEnabled(false);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(KEY_MODEL_DRINKS, Parcels.wrap(drinkResponse));
     }
 }
 

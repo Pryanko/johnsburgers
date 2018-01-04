@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.examle.libgo.johnsburgers.App;
 import com.examle.libgo.johnsburgers.R;
 import com.examle.libgo.johnsburgers.data.parcelers.MealsResponse;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMealsAll;
+import com.examle.libgo.johnsburgers.data.repository.AppRepository;
 import com.examle.libgo.johnsburgers.network.ApiService;
 import com.examle.libgo.johnsburgers.presentation.adapters.MealsAllAdapter;
 
@@ -29,6 +31,7 @@ import static com.examle.libgo.johnsburgers.tools.constants.ConstApp.KEY_MODEL_M
 public class MealsFragment extends MvpAppCompatFragment {
 
     private MealsResponse mealsResponse;
+    private AppRepository appRepository = App.getAppComponent().getAppRepository();
     @BindView(R.id.recyclerViewAllMeals)
     RecyclerView recyclerView;
 
@@ -68,6 +71,7 @@ public class MealsFragment extends MvpAppCompatFragment {
 
     private void startViewMeals(MealsResponse mealsResponse) {
         this.mealsResponse = mealsResponse;
+        appRepository.setMealsResponse(mealsResponse);
         List<MenuMealsAll> list = mealsResponse.getMenuMealsAll();
         MealsAllAdapter mealsAllAdapter = new MealsAllAdapter(list, getActivity());
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());

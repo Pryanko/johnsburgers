@@ -7,5 +7,6 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorViewCard">#d1542e21</color>
     <color name="colorGray">#ef96918f</color>
+    <color name="colorPrimaryTransparent">#f5000000</color>
 
 </resources>
