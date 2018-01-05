@@ -15,6 +15,8 @@ import com.examle.libgo.johnsburgers.data.parcelers.DrinkResponse;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
 import com.examle.libgo.johnsburgers.presentation.adapters.ItemAdapter;
 import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.DrinksPresenter;
+import com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters.ViewFragmentsBase;
+
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,7 +24,7 @@ import butterknife.ButterKnife;
  * @author libgo (08.12.2017)
  */
 
-public class DrinksFragment extends MvpAppCompatFragment {
+public class DrinksFragment extends MvpAppCompatFragment implements ViewFragmentsBase {
     @BindView(R.id.recyclerViewItemDrinks)
     RecyclerView recyclerView;
 
@@ -46,11 +48,27 @@ public class DrinksFragment extends MvpAppCompatFragment {
     }
 
     public void startViewShow() {
+
+    }
+
+    @Override
+    public void onPlayShow() {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity());
         itemAdapter.addList(drinksPresenter.getListMenu());
         recyclerView.setLayoutManager(lm);
         recyclerView.setAdapter(itemAdapter);
         recyclerView.setNestedScrollingEnabled(false);
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        drinksPresenter.destroyView();
     }
 }
 

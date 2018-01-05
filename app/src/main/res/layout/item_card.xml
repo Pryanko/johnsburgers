@@ -52,18 +52,39 @@
 
 
 
-        <Button
+        <com.examle.libgo.johnsburgers.layout.button.StateButton
             android:id="@+id/buttonItem"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:shadowRadius="3"
-            android:shadowDx="2"
+            android:layout_width="72dp"
+            android:layout_height="34dp"
+
             android:layout_alignParentRight="true"
 
             android:layout_marginTop="34dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/ic_add_to_basket_e_commerce_button"
+            android:text="@string/add"
+            android:textColor="@color/colorPrimary"
+
+            app:radius="1dp"
+            app:round="false"
+            app:animationDuration="250"
+
+
+
+            app:normalStrokeWidth="2dp"
+            app:pressedStrokeWidth="2dp"
+            app:unableStrokeWidth="2dp"
+
+            app:normalStrokeColor="@color/colorPrimary"
+            app:pressedStrokeColor="@color/colorPrimaryDark"
+            app:unableStrokeColor="@color/colorPrimaryDark"
+
+            app:normalBackgroundColor="@color/colorWhite"
+            app:pressedBackgroundColor="@color/colorPrimary"
+            app:unableBackgroundColor="@color/colorWhite"
+
+
+
 
              />
 

@@ -25,7 +25,7 @@
     <string name="yourOrder">YOUR ORDER</string>
     <string name="deleteItem">DELETE</string>
     <string name="buttonBasket">TO ORDER</string>
-    <string name="todo">TODO</string>
+
     <string name="name">FirstName</string>
     <string name="nameA">AdressName</string>
     <string name="nameitem2">nameitem2</string>
@@ -34,6 +34,8 @@
     <string name="home">Home</string>
     <string name="kv">Kv.</string>
     <string name="name_telephone">Telephone</string>
+    <string name="todo">TODO</string>
+    <string name="add">+add</string>
 
 
     <string-array name="CityList">

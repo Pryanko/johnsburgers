@@ -14,5 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:srcCompat="@drawable/logo_burger" />
+        app:srcCompat="@drawable/logo_burger"
+        android:contentDescription="@string/todo" />
 </RelativeLayout>

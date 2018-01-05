@@ -1,7 +1,6 @@
 package com.examle.libgo.johnsburgers.presentation.presenters.fragments_presenters;
 
 import com.examle.libgo.johnsburgers.App;
-import com.examle.libgo.johnsburgers.data.parcelers.DrinkResponse;
 import com.examle.libgo.johnsburgers.data.pojos.MenuMeal;
 import com.examle.libgo.johnsburgers.data.repository.AppRepository;
 import com.examle.libgo.johnsburgers.presentation.fragments.child_fragments.DrinksFragment;
@@ -26,15 +25,11 @@ public class DrinksPresenter implements PresenterBase {
     }
 
 
-    private void handleError(Throwable throwable) {
-        //Обработкой займемся поздней)
-    }
-
     @Override
     public void createView() {
         if (appRepository.getDownloadingD()) {
             drinksView.startViewShow();
-        }else {
+        } else {
             downloadData();
         }
     }
@@ -53,16 +48,15 @@ public class DrinksPresenter implements PresenterBase {
         CompositeDisposable compositeDisposable = new CompositeDisposable();
         compositeDisposable.add(RxNetwork.getDrinksApi()
                 .doOnNext(drinkResponse -> appRepository.setDrinkResponse(drinkResponse))
-                .subscribe(this::startView, this::handleError));
+                .subscribe(drinkResponse -> drinksView.onPlayShow(), this::handleError));
     }
 
-    private void startView(DrinkResponse drinkResponse) {
-        if (drinkResponse != null) {
-            drinksView.startViewShow();
-        }
-    }
-
-    public List<MenuMeal> getListMenu(){
+    public List<MenuMeal> getListMenu() {
         return appRepository.getDrinkResponse().getMenuDrinks();
+    }
+
+
+    private void handleError(Throwable throwable) {
+        //Обработкой займемся поздней)
     }
 }

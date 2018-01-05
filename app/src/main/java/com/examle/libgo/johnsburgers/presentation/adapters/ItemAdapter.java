@@ -36,10 +36,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
 
    public void addList(List<MenuMeal> list){
-       if(mealList.size() == 0){
            this.mealList = list;
            notifyDataSetChanged();
-       }
+
    }
 
     @Override
